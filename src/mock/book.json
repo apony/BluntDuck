@@ -1,0 +1,1063 @@
+{
+    "hasNext": true,
+    "retcode": "000000",
+    "appCode": "bangumi",
+    "dataType": "book",
+    "pageToken": "2",
+    "data": [
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": null,
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/85\/c3\/213440_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4396791100",
+            "writerInfo": null,
+            "id": "213440",
+            "pageNum": 192,
+            "title": "#140字のロマンス",
+            "noteCount": null,
+            "tags": null,
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "山科ティナ",
+                    "id": "b97e06df524cdaffdc1e64dd55fd2288"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "description": "現役東京藝大生がWEB漫画界に新風!\r\n妄キュン炸裂!\r\n妄想癖女子の、140字から生まれた胸キュン・オムニバスストーリー\r\n\r\n言葉以外で、あなたの好きを確かめたい\r\nいつでも、どこでも、何度でも。読むほどにときめく\r\n\r\n夢のようなロマンス、別れのロマンス…\r\nさまざまなラブストーリーを詰め込んだ、\r\n全ての女性のための甘く、幸せになれる一冊。\r\nDJあおい、カツセマサヒコ、さえりさんなどの人気ツイッタラーや、\r\n人気モデル・ちぃぽぽとのコラボ漫画も。\r\nWEBで発表した「#140字のロマンス」を大幅再編集&コミックスのための特別描き下ろし収録。\n    \t\t\t",
+            "bookType": "cartoon",
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/213440",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": 6.5,
+            "catPathKey": null,
+            "priceInfo": null,
+            "chapterIds": null,
+            "abstract": null,
+            "ratingCount": 2,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/36\/75\/214752_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4845850729",
+            "writerInfo": null,
+            "id": "214752",
+            "pageNum": null,
+            "title": "#ふつうのおんなのこ",
+            "noteCount": null,
+            "tags": null,
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "ゲズンタイト",
+                    "id": "ed6af731ad4374065de925d219f44e0a"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "bookType": "cartoon",
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "リイド社",
+            "url": "http:\/\/bgm.tv\/subject\/214752",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": null,
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/89\/0e\/116553_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": null,
+            "writerInfo": null,
+            "id": "116553",
+            "pageNum": null,
+            "title": "&",
+            "noteCount": null,
+            "tags": [
+                "已完结",
+                "漫画系列",
+                "轻小说"
+            ],
+            "mediaType": "book",
+            "keyValues": [
+                {
+                    "key": "册数",
+                    "value": "8"
+                },
+                {
+                    "key": "连载杂志",
+                    "value": "FEEL YOUNG"
+                }
+            ],
+            "writers": [
+                {
+                    "name": "おかざき真里",
+                    "id": "0381b6c0d312bbf61906bf0431ae4f9b"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "description": "       昼間は病院で医療事務員として働く青木薫は、夜だけ営業する個人のネイルサロンを始める。過去の経験から他人に触られるのが苦手で、恋愛にあまり興味を持てなかった薫だったが、職場の矢飼医師の過去を聞き、今までにない感情を持ち始める。\n    \t\t\t",
+            "bookType": "cartoon",
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "openDate": "2010年5月号",
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/116553",
+            "country": null,
+            "translators": null,
+            "closeDate": "2014年1月号"
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,008",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/36\/97\/160573_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "439676507X",
+            "writerInfo": null,
+            "id": "160573",
+            "pageNum": 192,
+            "title": "& (1)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "おかざき 真里",
+                    "id": "6de47e1fd2e8c2aad0bc26b939af39ec"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": null,
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/160573",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,008",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/aa\/0e\/160574_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4396765223",
+            "writerInfo": null,
+            "id": "160574",
+            "pageNum": null,
+            "title": "& (2)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "おかざき 真里",
+                    "id": "6de47e1fd2e8c2aad0bc26b939af39ec"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": null,
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/160574",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,008",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/a1\/fe\/160575_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4396765371",
+            "writerInfo": null,
+            "id": "160575",
+            "pageNum": null,
+            "title": "& (3)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "おかざき 真里",
+                    "id": "6de47e1fd2e8c2aad0bc26b939af39ec"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": null,
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/160575",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,008",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/c3\/48\/160576_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4396765495",
+            "writerInfo": null,
+            "id": "160576",
+            "pageNum": null,
+            "title": "& (4)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "おかざき 真里",
+                    "id": "6de47e1fd2e8c2aad0bc26b939af39ec"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": null,
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/160576",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,008",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/cc\/59\/160577_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4396765673",
+            "writerInfo": null,
+            "id": "160577",
+            "pageNum": null,
+            "title": "& (5)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "おかざき 真里",
+                    "id": "6de47e1fd2e8c2aad0bc26b939af39ec"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": null,
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/160577",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,008",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/30\/28\/160578_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4396765789",
+            "writerInfo": null,
+            "id": "160578",
+            "pageNum": null,
+            "title": "& (6)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "おかざき 真里",
+                    "id": "6de47e1fd2e8c2aad0bc26b939af39ec"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": null,
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/160578",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,008",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/07\/db\/160579_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4396765924",
+            "writerInfo": null,
+            "id": "160579",
+            "pageNum": null,
+            "title": "& (7)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "おかざき真里",
+                    "id": "0381b6c0d312bbf61906bf0431ae4f9b"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": null,
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/160579",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,008",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/36\/c0\/160580_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4396766017",
+            "writerInfo": null,
+            "id": "160580",
+            "pageNum": null,
+            "title": "& (8)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "おかざき 真里",
+                    "id": "6de47e1fd2e8c2aad0bc26b939af39ec"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": null,
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "祥伝社",
+            "url": "http:\/\/bgm.tv\/subject\/160580",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": 3,
+            "catPathKey": null,
+            "priceInfo": null,
+            "chapterIds": null,
+            "abstract": null,
+            "ratingCount": 1,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/ec\/f4\/24348_us.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": null,
+            "writerInfo": null,
+            "id": "24348",
+            "pageNum": null,
+            "title": "\"New Ways to Live, Part 1\" (Amazing Spider-Man Presents Anti-Venom, Is",
+            "noteCount": null,
+            "tags": [
+                "Mechanical",
+                "mov",
+                "quality",
+                "replica",
+                "swiss",
+                "High"
+            ],
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "Zeb Wells",
+                    "id": "e2d12d74f51b1f015061dc0278f9f6a0"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "bookType": "cartoon",
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "Marvel Comics",
+            "url": "http:\/\/bgm.tv\/subject\/24348",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": null,
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/28\/b6\/26048_us.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": null,
+            "writerInfo": null,
+            "id": "26048",
+            "pageNum": null,
+            "title": "\"Teen Titans: Year One\" Issues 1-6 COMPLETE SET NM (Teen Titans: Year",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": null,
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": null,
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "DC Comics",
+            "url": "http:\/\/bgm.tv\/subject\/26048",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": 7.7,
+            "catPathKey": null,
+            "priceInfo": null,
+            "chapterIds": null,
+            "abstract": null,
+            "ratingCount": 52,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/8b\/94\/60347_X5W48.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": null,
+            "writerInfo": null,
+            "id": "60347",
+            "pageNum": null,
+            "title": "\"葵\" ヒカルが地球にいたころ……",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "keyValues": [
+                {
+                    "key": "中文名",
+                    "value": "\"葵\"光在地球之时……"
+                },
+                {
+                    "key": "册数",
+                    "value": "3"
+                },
+                {
+                    "key": "话数",
+                    "value": "15"
+                },
+                {
+                    "key": "连载杂志",
+                    "value": "ガンガンONLINE"
+                },
+                {
+                    "key": "原作",
+                    "value": "野村美月"
+                },
+                {
+                    "key": "构成",
+                    "value": "山崎風愛"
+                }
+            ],
+            "writers": [
+                {
+                    "name": "CHuN",
+                    "id": "6d3f2fde72de3bdc920c4bf5803b24cd"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "description": "校园的‘皇子’之称的帝门光突然离世，与之相反被称为‘不良少年’的赤城是光因缘际会下参加了光的丧礼，在被光以幽灵型态附身的情景下相遇作为故事的开端。光提出如果不能达成他的\"心愿未了\"就无法升天离开是光，是光在迫不得已之下只能答应帮他完成，而光的遗愿是替他把生前未完成的约定，将七项生日礼物交给光的未婚妻\"左乙女葵\"，故事剧情由此开始转动。\r\n\r\n凶悪な顔立ちのせいで、ヤンキーじゃないのにヤンキー扱いされてしまう赤城是光。\r\n是光は、ある偶然から学園の“皇子”である、帝門ヒカルの幽霊に取り憑かれてしまう。\r\nヒカルの霊は、是光から離れることが出来ず、トイレも入浴も常に一緒の状態に。\r\nなんとかヒカルに成仏して、離れて欲しい是光は、ヒカルの心残りを晴らすことに。\r\nヒカルの心残りとは、婚約者の葵に６つのプレゼントを渡すことだというが…。\n    \t\t\t",
+            "tags": [
+                "野村美月",
+                "漫画",
+                "恋爱",
+                "天闻角川",
+                "后宫",
+                "校园",
+                "光还在地球的时候",
+                "悬疑",
+                "青春",
+                "CHUN",
+                "轻小说",
+                "NTR",
+                "文学少女",
+                "系列",
+                "天闻角川引进",
+                "，萌妹子",
+                "搞笑",
+                "友情",
+                "漫画系列",
+                "已完结"
+            ],
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "スクウェア・エニックス",
+            "url": "http:\/\/bgm.tv\/subject\/60347",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": 7.6,
+            "catPathKey": null,
+            "priceInfo": "￥ 590",
+            "chapterIds": null,
+            "abstract": null,
+            "ratingCount": 12,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/ac\/a7\/45840_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4757536283",
+            "writerInfo": null,
+            "id": "45840",
+            "pageNum": 157,
+            "title": "\"葵\" ヒカルが地球にいたころ…… (1)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "keyValues": [
+                {
+                    "key": "协力构成",
+                    "value": "山崎 風愛"
+                },
+                {
+                    "key": "人物原案",
+                    "value": "竹岡 美穂"
+                }
+            ],
+            "writers": [
+                {
+                    "name": "CHuN",
+                    "id": "6d3f2fde72de3bdc920c4bf5803b24cd"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": [
+                "单行本",
+                "漫画",
+                "野村美月",
+                "Comic",
+                "文学少女"
+            ],
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "スクウェア・エニックス",
+            "url": "http:\/\/bgm.tv\/subject\/45840",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": 7.6,
+            "catPathKey": null,
+            "priceInfo": "￥ 590",
+            "chapterIds": null,
+            "abstract": null,
+            "ratingCount": 10,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/6c\/47\/60345_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4757538219",
+            "writerInfo": null,
+            "id": "60345",
+            "pageNum": 174,
+            "title": "\"葵\" ヒカルが地球にいたころ…… (2)",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "keyValues": [
+                {
+                    "key": "协力构成",
+                    "value": "山崎 風愛"
+                },
+                {
+                    "key": "人物原案",
+                    "value": "竹岡 美穂"
+                }
+            ],
+            "writers": [
+                {
+                    "name": "CHuN",
+                    "id": "6d3f2fde72de3bdc920c4bf5803b24cd"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": [
+                "野村美月",
+                "单行本",
+                "漫画"
+            ],
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "スクウェア・エニックス",
+            "url": "http:\/\/bgm.tv\/subject\/60345",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": 7.8,
+            "catPathKey": null,
+            "priceInfo": "￥ 590",
+            "chapterIds": null,
+            "abstract": null,
+            "ratingCount": 4,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/6d\/89\/68087_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4757538995",
+            "writerInfo": null,
+            "id": "68087",
+            "pageNum": null,
+            "title": "\"葵\" ヒカルが地球にいたころ…… (3)",
+            "noteCount": null,
+            "tags": [
+                "单行本",
+                "漫画"
+            ],
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "野村 美月",
+                    "id": "fc1a2d0535baab3a151820737b1153be"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "bookType": "cartoon",
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "スクウェア・エニックス",
+            "url": "http:\/\/bgm.tv\/subject\/68087",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": 6,
+            "catPathKey": null,
+            "priceInfo": "￥ 799",
+            "chapterIds": null,
+            "abstract": null,
+            "ratingCount": 1,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/55\/ac\/174707_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4049262401",
+            "writerInfo": null,
+            "id": "174707",
+            "pageNum": 122,
+            "title": "(ニコ) 1",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "keyValues": [
+                {
+                    "key": "中文名",
+                    "value": "nico"
+                },
+                {
+                    "key": "备注",
+                    "value": "完全版全2卷"
+                }
+            ],
+            "writers": [
+                {
+                    "name": "タカハシマコ",
+                    "id": "2af07a046ace8e183758f92f47783d88"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "description": "       本书是以青少年问题为主的短篇作品集。各单元中所出现的角色，都面对了各种不同的问题，故事则透过各单元中出现，一具防制青少年犯罪的机械人nico眼中，来看待现今少年少女内心中所潜藏的黑暗面… 这是关於某个名叫nico的神秘少女传闻。凡是见过她的青少年都会被她带走失去踪影…究竟「nico」是什么？本书即是以「nico」为共通主题，以短篇方式来呈现的不同独立单元故事。对於当前日本青少年所遇到的各种不同心理问题均有深刻描写。 \n    \t\t\t",
+            "tags": [
+                "单行本"
+            ],
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "角川書店",
+            "url": "http:\/\/bgm.tv\/subject\/174707",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": null,
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/f9\/0b\/199564_h9DSc.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": null,
+            "writerInfo": null,
+            "id": "199564",
+            "pageNum": null,
+            "title": "(仮)花嫁のやんごとなき事情 ～離婚できたら一攫千金!～",
+            "noteCount": null,
+            "tags": [
+                "小说改"
+            ],
+            "mediaType": "book",
+            "keyValues": [
+                {
+                    "key": "中文名",
+                    "value": "(仮)替身新娘的贵族生活～离婚成功就能一攫千金!～"
+                },
+                {
+                    "key": "连载杂志",
+                    "value": "B's-LOG COMIC"
+                },
+                {
+                    "key": "原作",
+                    "value": "夕鷺かのう"
+                },
+                {
+                    "key": "キャラクター原案",
+                    "value": "山下ナナオ"
+                },
+                {
+                    "key": "漫画",
+                    "value": "兔ろうと"
+                }
+            ],
+            "writers": [
+                {
+                    "name": "兔ろうと",
+                    "id": "de0e43932b1cccfac3ab2d3b7e0b4848"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "description": "孤儿院出身的爱财如命少女‧菲尔在某日突然接到了一件破天荒的高薪工作\r\n——假扮成新娘嫁到敌国，期限之前圆满离婚就能一发致富？！\r\n然而结婚对象竟然是那个传说中嗜血成性、喜好毒物的黑龙公……？！ \r\n守财奴庶民少女×抖S恶毒皇子子，幻想系恋爱喜剧即将开幕!!\r\n\r\n\r\nド庶民根性なめんなよ!! \r\nサディスト皇子vsド庶民娘のうっかり婚ラブコメディ!! \r\n病弱な王女の身代わりとして、\r\n鬼畜な策略家と噂の敵国の皇子『毒龍公クロウ』\r\nに嫁ぐことになったフェルディア。\r\n実は彼女には、下町育ちゆえのちょっとした特技がある。\r\nそんなフェルに与えられた使命は、クロウと\"\"円満\"\"に離婚すること！ \r\n……のはずが、いきなり新婚初夜に襲われたあげ句、\r\n軟禁されるってどういうこと!? \r\nこんな男、絶対離婚してやる！\r\n——フェルの偽装新婚生活、スタート!!\n    \t\t\t",
+            "bookType": "cartoon",
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "エンターブレイン",
+            "url": "http:\/\/bgm.tv\/subject\/199564",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 670",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/19\/cd\/199562_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4047305464",
+            "writerInfo": null,
+            "id": "199562",
+            "pageNum": 131,
+            "title": "(仮)花嫁のやんごとなき事情 ～離婚できたら一攫千金!～ (1)",
+            "noteCount": null,
+            "tags": null,
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "兔 ろうと",
+                    "id": "0658b5dce24310012ec602f404161091"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "description": "こんな男、絶対離婚してやる！――フェルの偽装新婚生活、スタート!!\n\n孤児院育ちのド庶民・フェルディアは、29ものバイトを掛け持ちする勤労少女。\nある日 持ちかけられたお仕事、それは敵国エルラントの皇子「毒龍公クロウ」こと、\nクロヴィス・クルヴァッハ・エルラントに嫁ぐこと！\nしかもフェルディアに与えられた使命は、なんとクロウとの“円満”離婚で――!?\n    \t\t\t",
+            "bookType": "cartoon",
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "KADOKAWA\/エンターブレイン",
+            "url": "http:\/\/bgm.tv\/subject\/199562",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 670",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/13\/ba\/199561_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4047309869",
+            "writerInfo": null,
+            "id": "199561",
+            "pageNum": 182,
+            "title": "(仮)花嫁のやんごとなき事情 ～離婚できたら一攫千金!～ (2)",
+            "noteCount": null,
+            "tags": null,
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "兔 ろうと",
+                    "id": "0658b5dce24310012ec602f404161091"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "description": "こんな男、絶対離婚してやる! フェルの偽装新婚生活、思わぬ展開に!?\n\n孤児院育ちのド庶民・フェルディアは、29ものバイトを掛け持ちする勤労少女。\nある日 持ちかけられたお仕事、それは素性を偽り、敵国エルラントの皇子「毒龍公クロウ」こと、\nクロヴィス・クルヴァッハ・エルラントに嫁ぐこと!\nしかもフェルディアに与えられた使命は、なんとクロウとの“円満\"離婚!?\n偽花嫁のフェルの毎日は、旦那様にいびられたり、召使に嫌がらせされたり、波瀾万丈!!\nそんな生活にも慣れた!?ある日、クロウの兄・イグレックが訪ねて来て、\nフェルに敵意をむき出しにして――!? 大人気コミカライズ、待望の第2巻!!\n    \t\t\t",
+            "bookType": "cartoon",
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "KADOKAWA\/エンターブレイン",
+            "url": "http:\/\/bgm.tv\/subject\/199561",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": 6.4,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,337",
+            "chapterIds": null,
+            "abstract": null,
+            "ratingCount": 5,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/fd\/fc\/115220_PPXUS.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "978-4894216082",
+            "writerInfo": null,
+            "id": "115220",
+            "pageNum": null,
+            "title": "(妹)!?",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "keyValues": [
+                {
+                    "key": "别名",
+                    "value": "マルいも!?"
+                }
+            ],
+            "writers": [
+                {
+                    "name": "瀬奈陽太郎",
+                    "id": "d82f87901263bb740e81d41a7d0a3a45"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "description": "(妹)!? 付録ドラマCD\r\n\r\n【妹は美少年！？】\r\n役名 　　　　役者名\r\n武人 　　　　須本綾奈（すもと　あやな）\r\n純子 　　　　鈴美巴　（すずみ　ともえ）\r\n純子（子供） 鈴美巴　（すずみ　ともえ）\r\n女の子 　　　風華　　（ふうか）\r\n女子高生たち 皆さんで\n    \t\t\t",
+            "tags": [
+                "你好你很难n",
+                "瀬奈陽太郎",
+                "成年コミック",
+                "女推男",
+                "gg"
+            ],
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "富士美出版",
+            "url": "http:\/\/bgm.tv\/subject\/115220",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": null,
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/5c\/c0\/208923_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4883564800",
+            "writerInfo": null,
+            "id": "208923",
+            "pageNum": null,
+            "title": "(成)Mの痴穴",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "琴吹かづき",
+                    "id": "1e8ecda7e26ffc183c0b589e89fd4387"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": [
+                "想读"
+            ],
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "三和出版",
+            "url": "http:\/\/bgm.tv\/subject\/208923",
+            "country": null,
+            "translators": null
+        },
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": "￥ 1,080",
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "https\/\/lain.bgm.tv\/pic\/cover\/c\/99\/1f\/173813_jp.jpg",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn": "4887744501",
+            "writerInfo": null,
+            "id": "173813",
+            "pageNum": null,
+            "title": "(成)ぱいまんだら",
+            "noteCount": null,
+            "bookType": "cartoon",
+            "mediaType": "book",
+            "writers": [
+                {
+                    "name": "舞浜 楓",
+                    "id": "5101f01cab30b972831591e8fc8286c1"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "tags": [
+                "想读"
+            ],
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "ティーアイネット",
+            "url": "http:\/\/bgm.tv\/subject\/173813",
+            "country": null,
+            "translators": null
+        }
+    ]
+}

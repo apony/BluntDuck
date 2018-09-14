@@ -1,0 +1,34 @@
+
+@font-face {
+  font-family: "iconfont";
+  src:url('iconfont.ttf?t=1536910365042') format('truetype');
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  color: #0084B4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfont:hover{
+  color: #f09199;
+}
+
+.icon-tushu:before { content: "\e65d"; }
+
+.icon-music:before { content: "\e700"; }
+
+.icon-yuedu:before { content: "\e763"; }
+
+.icon-youxi:before { content: "\e764"; }
+
+.icon-youxi-copy:before { content: "\e765"; }
+
+.icon-yuedu-copy:before { content: "\e766"; }
+
+.icon-music-copy:before { content: "\e767"; }
+
+.icon-tushu-copy:before { content: "\e768"; }
+
