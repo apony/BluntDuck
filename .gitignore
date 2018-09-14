@@ -2,6 +2,9 @@
 node_modules
 /dist
 
+# vue各个环境跨域代理
+/config
+
 # local env files
 .env.local
 .env.*.local
