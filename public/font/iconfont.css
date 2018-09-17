@@ -12,9 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.iconfont:hover{
+/* .iconfont:hover{
   color: #f09199;
-}
+} */
 
 .icon-tushu:before { content: "\e65d"; }
 
