@@ -40,6 +40,10 @@
 //     }
 // };
 
+const path = require('path')
+function resolve (dir) {
+    return path.join(__dirname,dir)
+}
 
 module.exports = {
     // 基本路径
@@ -93,5 +97,14 @@ module.exports = {
     // 第三方插件配置
     pluginOptions: {
      // ...
-    }
+    },
+    configureWebpack: config => {
+        config.resolve = {
+           extensions: ['.js', '.vue', '.json',".css"],
+            alias: {
+              'vue$': 'vue/dist/vue.esm.js',
+              '@': resolve('src'),
+            }
+        }
+    },
 }

@@ -4,15 +4,12 @@
 // import TabBar from './tabs/TabBar.vue'
 // import TabItem from './tabs/TabItem.vue'
 
-
+import { Header } from 'mint-ui'
 
 export default {
     //外部引入该模块后，Vue.use()调用，install方法就执行。
-    install(Vue){
+    install:function(Vue) {
         console.log('install执行了');
-        // Vue.component(Swiper.name, Swiper);
-        // Vue.component(SwiperItem.name, SwiperItem);
-        // Vue.component(TabBar.name, TabBar);
-        // Vue.component(TabItem.name, TabItem);
+        Vue.component(Header.name, Header);
     }
 }

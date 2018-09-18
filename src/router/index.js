@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Article from '../pages/article'
+import Game from '../pages/game'
+import Book from '../pages/book'
+import Music from '../pages/music'
 
 Vue.use(Router)
 
@@ -7,11 +11,27 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: Home
-    // },
+    {
+      path: '/article',
+      name: 'article',
+      component: Article,
+      alias:'/'
+    },
+    {
+      path: '/game',
+      name: 'game',
+      component: Game,
+    },
+    {
+      path: '/book',
+      name: 'book',
+      component: Book
+    },
+    {
+      path: '/music',
+      name: 'music',
+      component: Music
+    },
     // {
     //   path: '/about',
     //   name: 'about',
