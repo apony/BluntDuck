@@ -1,4 +1,4 @@
-# 个人成长的vue笔记项目——laya(没引入淘宝自适应方案flexible.js)
+# 个人成长的vue笔记项目——laya(没引入移动端适配flexible.js)
 #####基于vue-cli脚手架工具搭建的vue环境，使用node的express模块模拟后台mock数据
 ------
 ## Project setup(项目配置)
