@@ -14,7 +14,7 @@
             "cssrem.autoRemovePrefixZero": true,
     
             // 根元素的字体大小 (unit: px), default: 16 (假设设计稿为375px，这里我们设置为3.75 iPhone6/7/8的rem基准值)
-            "cssrem.rootFontSize": 3.75, 
+            "cssrem.rootFontSize": 37.5, 
     
             //使插件的代码提示提前
             "editor.snippetSuggestions": "inline" => "top"

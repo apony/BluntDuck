@@ -5,7 +5,7 @@ html,body,#app{
 .page{
     width: 100%;
     position: absolute;
-    top: 0;
+    top: 1.173333rem;
     left: 0;
     bottom: 1.306667rem;
     overflow: hidden;

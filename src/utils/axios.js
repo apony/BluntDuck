@@ -83,6 +83,7 @@ export default {
         axios({
           method: 'get',
           url,
+          // params: params,
           params: Object.assign({apikey:'hnHycYP6UD36MNpcuLEizSWHaedJUn1vN2wsn8B0Kt9qpGvAkjJsZObaLI6hCPgC'},param),
           cancelToken: new CancelToken(c => {
             cancel = c
@@ -98,6 +99,7 @@ export default {
         axios({
           method: 'post',
           url,
+          // data: param,
           data: Object.assign({apikey:'hnHycYP6UD36MNpcuLEizSWHaedJUn1vN2wsn8B0Kt9qpGvAkjJsZObaLI6hCPgC'},param),
           cancelToken: new CancelToken(c => {
             cancel = c

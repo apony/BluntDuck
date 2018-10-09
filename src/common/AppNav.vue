@@ -14,15 +14,17 @@
 
 <script>
 export default {
+    name: 'AppNav',
     data(){
         return{
             item_name:['文章','游戏','图书','音乐'],
             item_className:['icon-yuedu','icon-youxi','icon-tushu','icon-music'],
-            item_hover:['select','','','']
+            item_hover:['','','','']
         }
     },
     methods:{
         iconSelect(index){
+            let temp = this.item_name[index]
             //清空之前的.select
             this.item_hover.map((item,i)=>{
                 if(item=="select"){
@@ -33,7 +35,8 @@ export default {
                 }
             })
             this.item_hover.splice(index,1,'select')
-            this.$router.push({name:this.transName(this.item_name[index])})
+            //路由传值
+            this.$router.push({name:this.transName(temp),params:{title:temp}})
         },
         transName(ChineseName){
             switch(ChineseName){
@@ -51,6 +54,15 @@ export default {
                     break
             }
         }
+    },
+    mounted(){
+        //解决刷新页面后重置底部状态栏
+        let index = this.item_name.findIndex(item=>{
+            if(this.$route.name === this.transName(item)){
+                return true
+            }
+        })
+        this.item_hover.splice(index,1,'select')
     }
 }
 </script>
@@ -61,7 +73,6 @@ export default {
     position: absolute;
     bottom: 0;
     left: 0;
-    /* height: 49px; */
     height: 1.306667rem;
 }
 .app-list{
@@ -70,12 +81,13 @@ export default {
     flex-direction: row;
 }
 .app-item{
+    margin-top: .133333rem;
     height: 100%;
     flex: 1;
     text-align: center;
 }
 .app-iconf{
-    font-size: .666667rem;
+    font-size: .56rem;
 }
 .title{
     display: block;

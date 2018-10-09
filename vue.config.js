@@ -41,9 +41,7 @@
 // };
 
 const path = require('path')
-function resolve (dir) {
-    return path.join(__dirname,dir)
-}
+const mock = require('./src/mock')
 
 module.exports = {
     // 基本路径
@@ -85,26 +83,24 @@ module.exports = {
     // see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
     pwa: {},
     // webpack-dev-server 相关配置
-    // devServer: {
+    devServer: {
     //  open: process.platform === 'darwin',
     //  host: '0.0.0.0',
     //  port: 8080,
     //  https: false,
     //  hotOnly: false,
     //  proxy: null, // 设置代理
-    //  before: app => {}
-    // },
+     before: app => {mock(app)}
+    },
     // 第三方插件配置
     pluginOptions: {
      // ...
     },
-    configureWebpack: config => {
-        config.resolve = {
-           extensions: ['.js', '.vue', '.json',".css"],
-            alias: {
-              'vue$': 'vue/dist/vue.esm.js',
-              '@': resolve('src'),
-            }
-        }
-    },
+    chainWebpack: (config)=>{
+        config.resolve.alias
+            .set('@', path.join(__dirname, 'src'))
+            .set('@services', path.join(__dirname, 'src/services'))
+            .set('@utils', path.join(__dirname, 'src/utils'))
+            .set('@mock', path.join(__dirname, 'src/mock'))
+    }
 }

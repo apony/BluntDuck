@@ -3,19 +3,19 @@
 ------
 ## Project setup(项目配置)
 ### Install depend on the package (安装依赖包)
-```node
+```shell
 npm install
 ```
 ### Running the express server(运行express服务器)
-```node
+```shell
 npm run start
 ```
 ### Compiles and hot-reloads for development(开发环境)
-```node
+```shell
 npm run dev
 ```
 ### Compiles and minifies for production(项目部署)
-```node
+```shell
 npm run build
 ```
 ------
@@ -46,8 +46,8 @@ npm run build
 ------
 ## Project construction details(项目搭建细节)
 * 1.搭建服务器
-    * 采取了express服务器，因为它快捷。
-        * a. node支持部分ES6语法，恰好import export语法不支持，只能使用commonJS规范。
+    * 自行搭建express服务器进行开发
+        * a. node支持部分ES6语法，恰好import export语法不支持，只能使用commonJS规范：require语法。
         * b. app.listen方法没有设置域名，导致server.address().address为空
     * 从网友封装的vue.config.js到webpack自带的中间件http-proxy-middleware进行服务器代理
         * vue.config.js  详情请移步=>[传送门](http://vuejs-templates.github.io/webpack)
@@ -56,7 +56,7 @@ npm run build
     > * devServer 服务代理及分发请求处理
     > * testing...(测试中，暂未可以拦截请求)
 
-        * http-proxy-middleware(node_modules=>webpack-dev-server=>lib=>Server.js)
+        * http-proxy-middleware(vue.config.js=>devServer=>before(取得app服务器对象))
     ```js
     /*webpack只拦截前缀为/api的接口*/
     app.use('/api',httpProxyMiddleware({
@@ -65,19 +65,130 @@ npm run build
     }))
     ```
         * node_router=>index.js(express.Router()设置路由表)
-    * 代理到别人的服务器细节
-        * 自己自定义的拦截请求(本项目为'/api')需要复写成为空，原因是因为别人的服务器定义的接口没有/api的路径
+    * 代理别人的服务器作为开发
+        * 自己自定义的拦截请求(本项目为'/api')需要复写成为空，原因是因为别人的服务器定义的接口没有/api的路径(本项目的axios已封装初始路径为/api)
         
-        ```js
-        app.use('/api',httpProxyMiddleware({
-            target:'http://api01.bitspaceman.com:8000',
-            changeOrigin:true,
-            pathRewrite: {
-            '^/api/' : '',     // rewrite intercept path to null
-            },
-        }))
-        ```
-* 2.资源路径问题
+            ```js
+            app.use('/api',httpProxyMiddleware({
+                //...
+                pathRewrite: {
+                '^/api/' : '',     // rewrite intercept path to null
+                },
+            }))
+            ```
+            `附上用promise封装好的axios.js`
+            ```js
+            //引入axios
+            import axios from 'axios'
+            let cancel ,promiseArr = {}
+            const CancelToken = axios.CancelToken;
+            //请求拦截器
+            axios.interceptors.request.use(config => {
+                //发起请求时，取消掉当前正在进行的相同请求
+                if (promiseArr[config.url]) {
+                    promiseArr[config.url]('操作取消')
+                    promiseArr[config.url] = cancel
+                } else {
+                    promiseArr[config.url] = cancel
+                }
+                  return config
+            }, error => {
+                return Promise.reject(error)
+            })
+            
+            //响应拦截器即异常处理
+            axios.interceptors.response.use(response => {
+                return response
+            }, err => {
+                if (err && err.response) {
+                  switch (err.response.status) {
+                    case 400:
+                      err.message = '错误请求'
+                      break;
+                    case 401:
+                      err.message = '未授权，请重新登录'
+                      break;
+                    case 403:
+                      err.message = '拒绝访问'
+                      break;
+                    case 404:
+                      err.message = '请求错误,未找到该资源'
+                      break;
+                    case 405:
+                      err.message = '请求方法未允许'
+                      break;
+                    case 408:
+                      err.message = '请求超时'
+                      break;
+                    case 500:
+                      err.message = '服务器端出错'
+                      break;
+                    case 501:
+                      err.message = '网络未实现'
+                      break;
+                    case 502:
+                      err.message = '网络错误'
+                      break;
+                    case 503:
+                      err.message = '服务不可用'
+                      break;
+                    case 504:
+                      err.message = '网络超时'
+                      break;
+                    case 505:
+                      err.message = 'http版本不支持该请求'
+                      break;
+                    default:
+                      err.message = `连接错误${err.response.status}`
+                  }
+                } else {
+                  err.message = "连接到服务器失败"
+                }
+                message.err(err.message)
+                  return Promise.resolve(err.response)
+            })
+            //设置默认拦截前缀
+            axios.defaults.baseURL = '/api'
+            //设置默认请求头
+            axios.defaults.headers = {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+            axios.defaults.timeout = 10000
+            
+            export default {
+              //封装get请求
+                get (url,param) {
+                  return new Promise((resolve,reject) => {
+                    axios({
+                      method: 'get',
+                      url,
+                      params: params,
+                      cancelToken: new CancelToken(c => {
+                        cancel = c
+                      })
+                    }).then(res => {
+                      resolve(res)
+                    })
+                  })
+                },
+              //封装post请求
+                post (url,param) {
+                  return new Promise((resolve,reject) => {
+                    axios({
+                      method: 'post',
+                      url,
+                      data: param,
+                      cancelToken: new CancelToken(c => {
+                        cancel = c
+                      })
+                    }).then(res => {
+                      resolve(res)
+                    })
+                  })
+                 }
+              }
+            ```
+* 2.资源路径
     * 今天踩坑无数，翻阅无数资料。总结：public文件夹千万不能动！不能动！不能动！
         * a. vue-cli 3.x创建项目下来，我立刻把public文件夹修改成自己最喜欢的static文件夹，然后血案就发生了。。。
 
@@ -95,6 +206,131 @@ npm run build
         <link rel="icon" type="image/x-icon" href="./<%= BASE_URL %>favicon.ico" />
         ```
         * c. `<%= BASE_URL %>`为public文件夹的根路径
+* 3.模块化mock数据
+    * 文件结构
+        >mock
+        >>xxx.json -----mockjs规范随机生成字段
+        >>util.js -----读取目录中的json文件
+        >>index.js -----编写拦截逻辑
+    * 代码详情
+        `1.xxx.json:` [mockjs教程](http://mockjs.com) =>[传送门](https://github.com/nuysoft/Mock/wiki)
+        ```json
+        {
+            "rating": null,
+            "catPathKey": null,
+            "priceInfo": null,
+            "chapterIds": null,
+            "abstract": null,
+            "coverUrl": "@image",
+            "commentCount": null,
+            "wordNum": null,
+            "isbn|10": 1,
+            "writerInfo": null,
+            "id": "@id",
+            "pageNum|100-200": 1,
+            "title": "@title",
+            "noteCount": null,
+            "tags": null,
+            "mediaType": "@word",
+            "writers": [
+                {
+                    "name": "@cname",
+                    "id": "@id"
+                }
+            ],
+            "copyrightOrg": null,
+            "reviewCount": null,
+            "catalogs": null,
+            "description": "@sentence",
+            "bookType": "@title",
+            "series": null,
+            "price": null,
+            "pressDate": null,
+            "viewCount": null,
+            "subtitle": null,
+            "publishOrg": "@ctitle",
+            "url": "@url",
+            "country": null,
+            "translators": null
+        }
+        
+        ```
+        `2.util.js`
+        ```js
+        const fs = require('fs')
+        const path = require('path')
+        module.exports = {
+            getJsonFile:function (filePath) {
+                var json = fs.readFileSync(path.resolve(__dirname,filePath), 'utf-8')
+                return JSON.parse(json)
+            }
+        }
+        ```
+        `3.index.js`
+        ```js
+        const Mock = require('mockjs')
+        const util = require('./util.js')
+        const httpProxyMiddleware = require('http-proxy-middleware');
+        module.exports = function(app){
+            //反向代理到服务器
+            //(简化vue.config.js before钩子函数代码片段)
+            //const mock = require('./src/mock/index.js')
+            //before: app => {mock(app)}
+            // app.use('/api',httpProxyMiddleware({
+            //     target:'http://api01.bitspaceman.com:8000',
+            //     changeOrigin:true,
+            //     pathRewrite: {
+            //     '^/api/' : '',
+            //     },
+            // }))
+            
+            //mock模拟数据
+            app.get('/api/test', function (rep, res) {
+                var json = util.getJsonFile('./xxx.json')
+                res.json(Mock.mock(json))
+            })
+        }
+        ```
+        `4.我们尽管愉快地请求`
+        ```vue
+        axios.get('/test',{
+            id:'001',
+            name:'小明'
+        })
+        .then(res=>{
+            console.log('res',res)
+        })
+        ```
+        `5.最后，附上我的vue.config.js配置(未完待续...)`
+        ```js
+        const path = require('path')
+        const mock = require('./src/mock')
+        
+        module.exports = {
+            // 项目初始路径
+            baseUrl: '/',
+            // 输出文件目录
+            outputDir: 'dist',
+            // webpack-dev-server 相关配置
+            devServer: {
+            //  open: process.platform === 'darwin',
+            //  host: '0.0.0.0',
+            //  port: 8080,
+            //  https: false,
+            //  hotOnly: false,
+            //  proxy: null, // 设置代理
+             before: app => {mock(app)}
+            },
+            //路径别名设置
+            chainWebpack: (config)=>{
+                config.resolve.alias
+                    .set('@', path.join(__dirname, 'src'))
+                    .set('@services', path.join(__dirname, 'src/services'))
+                    .set('@utils', path.join(__dirname, 'src/utils'))
+                    .set('@mock', path.join(__dirname, 'src/mock'))
+            }
+        }
+        ```
         
 ------
 ## Project code details(项目代码细节)
@@ -141,13 +377,13 @@ npm run build
     * 用法：
         * 使用变异方法更新数组(对象可以使用使用Vue.set/vm.$set和Object.assign方法来更新对象)
         
-        > * push()
-        > * pop()
-        > * shift()
-        > * unshift()
-        > * splice() => 集攻击(增)防御(删)逃跑(改)于一身的贼厉害的方法【已推荐√】
-        > * sort()
-        > * reverse()
+        > - [x] push()
+        > - [ ] pop()
+        > - [ ] shift()
+        > - [ ] unshift()
+        > - [X] splice() => 集攻击(增)防御(删)逃跑(改)于一身的贼厉害的方法
+        > - [ ] sort()
+        > - [ ] reverse()
         
         * 对于非变异方法使用替换旧数组打法来更新数组
         ```js
@@ -182,6 +418,7 @@ npm run build
         <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
         ```
         * 下载引入 [传送门](https://download.csdn.net/download/pojava/10674317) (下载注意：flexible_css.js内含reset.css)
+        
         ```html
         //引入flexible.js和flexible_css.js
         <script src="......lib-flexible/flexible.js"></script>
@@ -200,8 +437,8 @@ npm run build
             ```vscodeConfig
             // 自动移除0开头的前缀，默认：true
             "cssrem.autoRemovePrefixZero": true,
-            // 根元素的字体大小 (unit: px), default: 16 (假设设计稿为375px，这里我们设置为3.75 iPhone6/7/8的rem基准值)
-            "cssrem.rootFontSize": 3.75, 
+            // 根元素的字体大小 (unit: px), default: 16 (假设设计稿为375px，这里我们设置为37.5 iPhone6/7/8的rem基准值)
+            "cssrem.rootFontSize": 37.5, 
             //使插件的代码提示提前
             "editor.snippetSuggestions": "inline" => "top"
             ```
@@ -294,7 +531,7 @@ npm run build
         * 过程：
             > 下载mint-ui
 
-            ```npm
+            ```shell
             npm i mint-ui -S
             ```
             > main.js片段
@@ -316,22 +553,12 @@ npm run build
             }
             ```
         * 报错： [传送门](https://segmentfault.com/a/1190000006435886)
-        ```console
-        [Vue warn]: You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build
-        //运行时构建不包含模板编译器，因此不支持 template 选项，只能用 render 选项，但即使使用运行时构建，在单文件组件中也依然可以写模板，因为单文件组件的模板会在构建时预编译为 render 函数。
-        ```
-        * 解答：
+        > [Vue warn]: You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build
+        译文：[Vue 警告]：运行时构建不包含模板编译器，因此不支持 template 选项，只能用 render 选项，但即使使用运行时构建，在单文件组件中也依然可以写模板，因为单文件组件的模板会在构建时预编译为 render 函数。
+        * 解答：webpack的别名功能把vue/dist/vue.js命名成了vue
+        - [x] import Vue from 'vue'(正确)
+        - [ ] import Vue from 'vue/dist/vue.js'(错误)
         
-        >原来webpack的别名功能把vue/dist/vue.js命名成了vue，所以引入vue的时候只需
-        
-        ```js
-        import Vue from 'vue'
-        ```
-        >而不需要用下面的引入方式
-        
-        ```js
-        import vue from 'vue/dist/vue.js'
-        ```
         * 解决：(修改vue别名设置) [传送门](http://www.cnblogs.com/hanguidong/p/9416194.html)
             * 对比：
                 >* `vue2.x`: webpack.base.conf.js这个文件已经将vue/dist.package.json的错误引用纠正成vue/dist.vue.esm.js
@@ -350,19 +577,12 @@ npm run build
             * `vue3.x`: (在vue.config.js配置)
             ```js
             const path = require('path')
-            function resolve (dir) {
-                return path.join(__dirname,dir)
-            }
             module.exports = {
-                configureWebpack: config => {
-                    config.resolve = {
-                    extensions: ['.js', '.vue', '.json',".css"],
-                        alias: {
-                        'vue$': 'vue/dist/vue.esm.js',
-                        '@': resolve('src'),
-                        }
-                    }
-                },
+                chainWebpack: (config)=>{
+                    config.resolve.alias
+                        .set('@', path.join(__dirname, 'src'))
+                        .set('@utils', path.join(__dirname, 'src/utils'))
+                }
             }
             ```
         * 笔记：[传送门](http://jiongks.name/blog/code-review-for-vue-next/)
@@ -370,3 +590,75 @@ npm run build
             > 也就是说，vue.js = vue.common.js + compiler.js，而如果要使用 template 这个属性的话就一定要用 compiler.js，那么，引入 vue.js 是最恰当的
             
     ----
+* 5.关于全局注册组件和局部注册组件的问题 [官网传送门](https://cn.vuejs.org/v2/guide/components-registration.html#ad)
+    * 用法：
+        >全局注册：
+
+        ```vue
+        Vue.component('component-a', { /* ... */ })
+        Vue.component('component-b', { /* ... */ })
+        Vue.component('component-c', { /* ... */ })
+        new Vue({ el: '#app' })
+        ```
+        >局部注册：
+        
+        ```vue
+        var ComponentA = { /* ... */ }
+        var ComponentB = { /* ... */ }
+        new Vue({
+            el: '#app'
+            components: {
+                'component-a': ComponentA,
+                'component-b': ComponentB
+            }
+        })
+        ```
+    * 报错：
+    [Vue warn]: Unknown custom element: – did you register the component correctly? For recursive components, make sure to provide the“name”option
+
+    * 解决：
+        在vue组件的`<script>`内定义一个`name`键值
+        ```vueFile
+        <script>
+            export default {
+                name:'test'
+            }
+        </script>
+        ```
+        之后再进行全局注册组件
+        ```vueFile
+        import test from './common/test.vue'
+        Vue.component(test.name,test)
+        ```
+    * 扩展：
+        * 封装组件(请配合Vue.use和install方法放心食用)
+        ```js
+        //1.定义一个name键值
+        //...AppHeader.vue
+        <script>
+            export default {
+                name:'test'
+            }
+        </script>
+        
+        //2.入口文件调用Vue.use方法
+        //...main.js
+        import Vue from 'vue'
+        import App from './App.vue'
+        import boundle from './boundle'
+        Vue.use(boundle)
+        new Vue({
+          render: h => h(App)
+        }).$mount('#app')
+        
+        //3.接着配合Vue.use传进来的Vue实例进行全局注册组件
+        //...boundle/index.js
+        export default {
+            install:function(Vue) {
+                Vue.component(AppHeader.name,AppHeader)
+            }
+        }
+        ```
+    * 笔记：
+    >创建组件时使用驼峰命名，调用组件的时候需要将驼峰改为横线-写法
+    >避免以大写组件名引入组件，适当时可使用name键值注册组件

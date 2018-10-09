@@ -1,21 +1,28 @@
 <template>
     <div class="titleView">
-        <mt-header fixed title="固定在顶部"></mt-header>
+            <mt-header :title="title">
+                <router-link to="/" slot="left">
+                    <mt-button icon="back">返回</mt-button>
+                </router-link>
+                <mt-button icon="more" slot="right"></mt-button>
+            </mt-header>
     </div>
     
 </template>
 
 <script>
 export default {
-
+    name: 'AppHeader',
+    props:{
+        title: String
+    },
+    
 }
 </script>
 
 <style scoped>
-/* .titleView{
-    position: absolute;
-    left: 0;
-    top: 0;
+.titleView{
     height: 1.173333rem;
-} */
+}
+
 </style>
