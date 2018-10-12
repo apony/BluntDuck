@@ -662,3 +662,70 @@ npm run build
     * 笔记：
     >创建组件时使用驼峰命名，调用组件的时候需要将驼峰改为横线-写法
     >避免以大写组件名引入组件，适当时可使用name键值注册组件
+
+    ----
+* 6.关于style模板scope问题
+    >* 用法：在组件加上scope属性表示独立专属选择器，只能在当前页面使用，避免样式混乱
+    >* 原理：经webpack解析后，在当前元素加上属性选择器(实际上就是加上随机自定义属性)进行样式限制
+    >* 场景：因为使用基于vue框架的mint-ui组件库，发现默认样式不满足项目的实际情况，所以进行修改默认样式
+    >* 问题：由于使用了scope属性进行样式限制，所以只在当前元素起作用，但就像mint-ui众多组件中经常又会封装下层子元素，恰恰这种做法就不起作用了
+
+    `解决有三，其三最优：`
+    - [ ] [方法一](https://blog.csdn.net/qq_36671474/article/details/82454718)： 自定义mint-ui样式表，整体修改默认样式
+        >步骤1：新建my-mint.scss文件，app.vue引入自定义mint-ui样式覆盖原来默认样式
+    ```scss
+    /* 附上my-mint.scss*/
+    //该例子为修改mint-ui整体颜色风格
+    $color-primary: orange; 
+.mint-header {background-color: $color-primary;}
+.mint-button:not(.is-disabled):active::after {opacity: .2}
+.mint-button--primary {background-color:$color-primary;}
+.mint-button--primary.is-plain {border: 1px solid $color-primary; color: $color-primary}
+.mint-badge.is-primary {background-color: $color-primary}
+.mint-switch-input:checked + .mint-switch-core {border-color: $color-primary;  background-color: $color-primary;}
+.mint-navbar .mint-tab-item.is-selected {border-bottom: 3px solid $color-primary;  color: $color-primary;}
+.mint-tabbar > .mint-tab-item.is-selected {color: $color-primary;}
+.mint-searchbar-cancel {color: $color-primary;}
+.mint-checkbox-input:checked + .mint-checkbox-core {background-color: $color-primary;  border-color: $color-primary;}
+.mint-radio-input:checked + .mint-radio-core {background-color: $color-primary;  border-color: $color-primary;}
+.mt-range-progress {background-color: $color-primary;}
+.mt-progress-progress {background-color: $color-primary;}
+.mint-msgbox-confirm {color: $color-primary;}
+.mint-msgbox-confirm:active {color: $color-primary;}
+.mint-datetime-action {color: $color-primary;}
+    ```
+        >步骤二：引入my-mint.scss
+        ```vue
+        import './assets/css/my-mint.scss';//全局修改mint-UI样式
+        ```
+    - [ ] [方法二](https://blog.csdn.net/swiftlinlei/article/details/80481799)：通过编译后的class类名暴露，获取修改样式，当然也要提高样式优先级达到覆盖
+        > mint-ui中的Header组件编译后变为
+        ```html
+        <header data-v-2945c3a3="" class="mint-header">
+            <h1 class="mint-header-title">title</h1>
+        </header>
+        ```
+        
+        > 暴露class类名之后，提高优先级
+        ```css
+        .mint-header{
+            font-size: 16px !important;
+        }
+        ```
+    - [x] [方法三](https://blog.csdn.net/jerrica/article/details/80975006)：利用scoped属性的穿透效果(`>>>`标识符)(与此同时不能使用其他样式语言,如：sass,less等)
+    
+        > 复用上面例子，上面例子的mint-header-title是无法通过方法二来设置的，理由就是真正的自定义属性在header标签上，并不在h1标签上
+        ```html
+        <header data-v-2945c3a3="" class="mint-header">
+            <h1 class="mint-header-title">title</h1>
+        </header>
+        ```
+        > 这里我们就可以使用>>>穿透标识符进行穿透，从而选中h1标签
+        ```css
+        .mint-header>>>.mint-header-title{
+            font-size: 16px;
+        }
+        ```
+        
+    * 笔记：
+    >虽然官方没有明确定义自定义修改样式，但是还是可以通过编译后的类名来选择样式的，在加上`>>>穿透标识符`简直天下无敌呐

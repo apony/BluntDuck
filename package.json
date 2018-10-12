@@ -16,6 +16,7 @@
     "mint-ui": "^2.2.13",
     "mockjs": "^1.0.1-beta3",
     "vue": "^2.5.17",
+    "vue-aplayer": "^1.6.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

@@ -1,11 +1,9 @@
 <template>
     <div class="titleView">
-            <mt-header :title="title">
-                <router-link to="/" slot="left">
-                    <mt-button icon="back">返回</mt-button>
-                </router-link>
-                <mt-button icon="more" slot="right"></mt-button>
-            </mt-header>
+        <mt-header :title="title">
+            <mt-button :icon="leftSlot.iconf" :slot="leftSlot.mode" @click="handleReturnAction">{{leftSlot.content}}</mt-button>
+            <mt-button :icon="rightSlot.iconf" :slot="rightSlot.mode" @click="handleSearchAction"></mt-button>
+        </mt-header>
     </div>
     
 </template>
@@ -14,9 +12,18 @@
 export default {
     name: 'AppHeader',
     props:{
-        title: String
+        title: String,
+        leftSlot: Object,
+        rightSlot: Object
     },
-    
+    methods:{
+        handleSearchAction(){
+            this.$router.push({name:this.rightSlot.tolink})
+        },
+        handleReturnAction(){
+            this.$router.push({name:this.leftSlot.tolink,params:{comment:'return'}})
+        }
+    }
 }
 </script>
 
@@ -24,5 +31,10 @@ export default {
 .titleView{
     height: 1.173333rem;
 }
-
+.mint-header{
+    font-size: .426667rem;
+}
+.mint-header>>>.mintui-search{
+    font-size: .426667rem;
+}
 </style>

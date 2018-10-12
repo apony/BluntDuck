@@ -1,6 +1,6 @@
 <template>
     <div>
-        <app-header :title="title"></app-header>
+        <app-header :title="title" :leftSlot="leftSlot" :rightSlot="rightSlot"></app-header>
         <div class="page">
             <div>图书</div>
         </div>
@@ -11,7 +11,19 @@
 export default {
     data(){
         return{
-            title: this.$route.params.title || '图书'
+            title: this.$route.params.title || '图书',
+            leftSlot: {
+                mode:'left',
+                content:'',
+                tolink:'',
+                iconf:''
+            },
+            rightSlot: {
+                mode:'right',
+                content:'',
+                tolink:'',
+                iconf:''
+            }
         }
     }
 }

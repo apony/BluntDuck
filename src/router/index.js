@@ -4,6 +4,7 @@ import Article from '../pages/article'
 import Game from '../pages/game'
 import Book from '../pages/book'
 import Music from '../pages/music'
+import Search from '../pages/music/com/search.vue'
 
 Vue.use(Router)
 
@@ -30,7 +31,14 @@ export default new Router({
     {
       path: '/music',
       name: 'music',
-      component: Music
+      component: Music,
+      children:[
+        {
+          path: 'search',
+          name: 'search',
+          component: Search
+        }
+      ]
     },
     // {
     //   path: '/about',

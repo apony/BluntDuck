@@ -22,6 +22,19 @@ export default {
             item_hover:['','','','']
         }
     },
+    watch:{
+        $route(to,from){
+            //去除音乐底部栏选中状态
+            this.item_name.map((item,index)=>{
+                if('music' === this.transName(item)){
+                    this.item_hover.splice(index,1,'')
+                }
+            })
+            if(this.$route.params.comment === 'return'){
+                this.item_hover.splice(0,1,'select')
+            }
+        }
+    },
     methods:{
         iconSelect(index){
             let temp = this.item_name[index]
@@ -81,7 +94,8 @@ export default {
     flex-direction: row;
 }
 .app-item{
-    margin-top: .133333rem;
+    box-sizing: border-box;
+    padding-top: .133333rem;
     height: 100%;
     flex: 1;
     text-align: center;

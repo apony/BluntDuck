@@ -1,6 +1,6 @@
 <template>
     <div>
-        <app-header :title="title"></app-header>
+        <app-header :title="title" :leftSlot="leftSlot" :rightSlot="rightSlot"></app-header>
         <div class="page">
             <div>游戏</div>
         </div>
@@ -11,7 +11,19 @@
 export default {
     data(){
         return{
-            title: this.$route.params.title || '游戏'
+            title: this.$route.params.title || '游戏',
+            leftSlot: {
+                mode:'left',
+                content:'',
+                tolink:'',
+                iconf:''
+            },
+            rightSlot: {
+                mode:'right',
+                content:'',
+                tolink:'',
+                iconf:''
+            }
         }
     }
 }

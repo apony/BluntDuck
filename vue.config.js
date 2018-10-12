@@ -99,8 +99,10 @@ module.exports = {
     chainWebpack: (config)=>{
         config.resolve.alias
             .set('@', path.join(__dirname, 'src'))
+            .set('@api', path.join(__dirname, 'src/api'))
             .set('@services', path.join(__dirname, 'src/services'))
             .set('@utils', path.join(__dirname, 'src/utils'))
             .set('@mock', path.join(__dirname, 'src/mock'))
+            .set('@filters', path.join(__dirname, 'src/filters'))
     }
 }
