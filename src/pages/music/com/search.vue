@@ -1,25 +1,31 @@
 <template>
-    <div class="musicBox">
+    <div>
         <mt-search  placeholder="搜索" @input="searchRes">
             <mt-cell
                 v-for="(item,index) in searchList"
                 :key="index"
                 :title="handleTitleData(item.songName)"
                 :label="handleDescribeData(item)"
-                @click.native="test(index)"
+                @click.native="playSong(index)"
                 >
                 <span class="more">...</span>
             </mt-cell>
             
         </mt-search>
         <div class="gobackbtn" @click="handleGobackAction"><</div>
-        
+        <div class="content" v-show="isSearch">
+            <div class="title">热门搜索</div>
+            <ul class="hotList">
+                <li v-for="(item,index) in hotSearchList" :key="index">{{item.first}}</li>
+            </ul>
+        </div>
     </div>
 </template>
 
 <script>
 import {
     getNetEaseMusicSearch,
+    getNetEaseMusicHotSearch,
     getNetEaseMusicUrl,
     getNetEaseMusicCheckCopyright
 } from '@services'
@@ -27,11 +33,14 @@ import {
     filterDescribe,
     filterSongName
 } from '@filters/songInfoFilter.js'
+import bus from '@utils/pubsub.js'
 export default {
     data(){
         return{
             value:'',
-            searchList: []
+            isSearch: true,
+            searchList: [],
+            hotSearchList:[]
         }
     },
     methods:{
@@ -41,13 +50,18 @@ export default {
                 this.searchList = []
                 clearTimeout(this.timer);
             }
-
             if(keyword){
                 this.timer = setTimeout(() => {
+                    this.isSearch = false;
                     getNetEaseMusicSearch(keyword).then(data=>{
                         this.searchList = data
                     })
                 }, 400)
+            }else{
+                getNetEaseMusicHotSearch().then(res=>{
+                    this.hotSearchList = res
+                    this.isSearch = true
+                })
             }
         },
         handleGobackAction(){
@@ -59,10 +73,33 @@ export default {
         handleTitleData(name){
             return filterSongName(name)
         },
-        test(index){
-            console.log('播放')
+        playSong(index){
+            new Promise(resolve=>{
+                //是否有版权
+                getNetEaseMusicCheckCopyright(this.searchList[index].songId).then(res=>{
+                    if(res.message==='ok'){
+                        resolve(res.success)
+                    }
+                })
+            })
+            .then((isCopyright)=>{
+                if(isCopyright){
+                    getNetEaseMusicUrl(this.searchList[index].songId).then(res=>{
+                        this.searchList[index].songInfo = res
+                        bus.emit('addSong',this.searchList[index])
+                        bus.emit('playSong')
+                    })
+                }else{
+                    console.log('当前歌曲没有版权!')
+                }
+            })
         }
-    }
+    },
+    mounted() {
+        getNetEaseMusicHotSearch().then(res=>{
+            this.hotSearchList = res
+        })
+    },
 }
 </script>
 
@@ -134,9 +171,6 @@ a:hover {
 .mint-search>>>.mintui-search{
     font-size: .426667rem;
 }
-.mint-search>>>.mint-search-list{
-    margin-top: .213333rem;
-}
 .mint-search>>>.mint-cell-text{
     overflow : hidden;
     text-overflow: ellipsis;
@@ -148,10 +182,29 @@ a:hover {
 .mint-search>>>.mint-cell-wrapper{
     margin-top: .213333rem;
 }
-
 .more{
     font-size: .693333rem;
     transform: rotate(90deg);
 }
-
+.content{
+    position: absolute;
+    width: 100%;
+    top: 1.28rem;
+    left: 0;
+    bottom: 1.76rem;
+    z-index: 6;
+}
+.content .title{
+    font-size: .373333rem;
+    font-weight: 600;
+    margin: .213333rem .16rem;
+}
+.hotList li{
+    float: left;
+    font-size: .373333rem;
+    padding: .16rem .266667rem;
+    margin: .133333rem;
+    border-radius: .4rem;
+    background-color: #eeeeee;
+}
 </style>

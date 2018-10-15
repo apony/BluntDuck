@@ -50,7 +50,8 @@ export function getNetEaseMusicSearch(keywords){
                                 singerId: childItem.id,
                                 singerName: childItem.name
                             }
-                        })
+                        }),
+                        songInfo:[]
                     }
                 })
                 resolve(data)
@@ -70,11 +71,29 @@ export function getNetEaseMusicSearch(keywords){
  * @param {*} id 歌曲id 必填
  */
 export function getNetEaseMusicUrl(id){
-    return axios.get(API.NETEASE_MUSIC_URL_URL,{
-        id
+    return new Promise(resolve=>{
+        axios.get(API.NETEASE_MUSIC_URL_URL,{
+            id
+        })
+        .then(result=>{
+            if(result.status===200){
+                let data = result.data.data.map(item=>{
+                    return {
+                        id: item.id,
+                        size: item.size,
+                        url: item.url,
+                        type: item.type
+                    }
+                })
+                resolve(data)
+            }
+        })
+        .catch(error=>{
+            console.log('失败');
+            console.log(error);
+        })
     })
 }
-
 
 /**
  * @description 查看该音乐版权
@@ -83,7 +102,42 @@ export function getNetEaseMusicUrl(id){
  * @param {*} id 歌曲id 必填
  */
 export function getNetEaseMusicCheckCopyright(id){
-    return axios.get(API.NETEASE_MUSIC_CHECKCOPY_URL,{
-        id
+    return new Promise(resolve=>{
+        axios.get(API.NETEASE_MUSIC_CHECKCOPY_URL,{
+            id
+        })
+        .then(result=>{
+            if(result.status===200){
+                let data = result.data
+                resolve(data)
+            }
+        })
+        .catch(error=>{
+            console.log('失败');
+            console.log(error);
+        })
     })
+    
+}
+
+/**
+ * @description 获得热门搜索
+ * @author apony
+ * @date 2018-10-13
+ */
+export function getNetEaseMusicHotSearch(){
+    return new Promise(resolve=>{
+        axios.get(API.NETEASE_MUSIC_HOTSEARCH_URL)
+        .then(result=>{
+            if(result.status===200){
+                let data = result.data.result.hots
+                resolve(data)
+            }
+        })
+        .catch(error=>{
+            console.log('失败');
+            console.log(error);
+        })
+    })
+    
 }

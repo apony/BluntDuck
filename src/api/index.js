@@ -10,15 +10,23 @@ const BANGUMI_BOOK_DETAIL_URL = '/book/bangumi'
     NETEASE搜索音乐的请求接口
     参数：
         必填：String:keywords 关键词
+        选填：Number:limit返回数量 Number:offset 偏移量 String:type 搜索类型
 */
 const NETEASE_MUSIC_SEARCH_URL = '/search'
+
+/*
+    NETEASE热门搜索的请求接口
+    参数：
+        必填：无
+*/
+const NETEASE_MUSIC_HOTSEARCH_URL = '/search/hot'
 
 /*
     NETEASE音乐url地址的请求接口
     参数：
         必填：String:id 歌曲id
 */
-const NETEASE_MUSIC_URL_URL = '/music/url'
+const NETEASE_MUSIC_URL_URL = '/song/url'
 
 /*
     NETEASE查看音乐版权的请求接口
@@ -27,9 +35,11 @@ const NETEASE_MUSIC_URL_URL = '/music/url'
 */
 const NETEASE_MUSIC_CHECKCOPY_URL = '/check/music'
 
+
 export default {
     BANGUMI_BOOK_DETAIL_URL,
     NETEASE_MUSIC_SEARCH_URL,
+    NETEASE_MUSIC_HOTSEARCH_URL,
     NETEASE_MUSIC_URL_URL,
     NETEASE_MUSIC_CHECKCOPY_URL
 }
