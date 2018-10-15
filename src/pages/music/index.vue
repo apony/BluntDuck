@@ -5,12 +5,11 @@
             <div>音乐</div>
         </div>
         <keep-alive>
-            <aplayer ref="player" repeat="list"
-                :music="currentPlay[0]"
-                :list='playList'
-                @play="onPlayerPlay($event)"
-                @pause="onPlayerPause($event)"
-                @ended="onPlayerEnded($event)"
+            <aplayer ref="player"
+                :music="playList[0]"
+                :list="playList"
+                repeat="list"
+                autoplay shuffle listFolded preload
             />
         </keep-alive>
         <router-view></router-view>
@@ -35,28 +34,18 @@ export default {
                 tolink:'search',
                 iconf:'search'
             },
-            playList:[],
-            currentPlay:[{
-                id: 0,
-                title: 'secret base~君がくれたもの~',
-                artist: 'Silent Siren',
-                src: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.mp3',
-                pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+            playList:[{
+                title: '前前前世',
+                artist: 'RADWIMPS',
+                src: 'https://moeplayer.b0.upaiyun.com/aplayer/yourname.mp3',
+                pic: 'https://moeplayer.b0.upaiyun.com/aplayer/yourname.jpg',
+                lrc: 'https://moeplayer.b0.upaiyun.com/aplayer/yourname.lrc',
             }]
         }
     },
     methods:{
         play(){
             this.$refs.player.play()
-        },
-        onPlayerPlay(){
-            console.log('onPlayerPlay',this.currentPlay)
-        },
-        onPlayerPause(){
-            console.log('onPlayerPause',this.currentPlay)
-        },
-        onPlayerEnded(){
-            console.log('onPlayerEnded',this.currentPlay)
         }
     },
     mounted() {
@@ -72,15 +61,10 @@ export default {
                     id: currentSong.songId,
                     title: currentSong.songName,
                     artist: currentSong.singer[0].singerName,
-                    src: currentSong.songInfo[0].url
+                    src: currentSong.songInfo[0].url,
+                    pic: currentSong.songInfo[0].pic
                 })
             }
-            this.currentPlay.splice(0,1,{
-                id: currentSong.songId,
-                title: currentSong.songName,
-                artist: currentSong.singer[0].singerName,
-                src: currentSong.songInfo[0].url
-            })
         })
         bus.on('playSong',()=>{
             this.play()

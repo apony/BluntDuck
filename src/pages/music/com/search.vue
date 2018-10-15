@@ -87,7 +87,7 @@ export default {
                     getNetEaseMusicUrl(this.searchList[index].songId).then(res=>{
                         this.searchList[index].songInfo = res
                         bus.emit('addSong',this.searchList[index])
-                        bus.emit('playSong')
+                        // bus.emit('playSong')
                     })
                 }else{
                     console.log('当前歌曲没有版权!')
