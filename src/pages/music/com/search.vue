@@ -1,6 +1,6 @@
 <template>
     <div>
-        <mt-search  placeholder="搜索" @input="searchRes">
+        <mt-search  placeholder="搜索"  v-model="searchWord" @input="searchRes">
             <mt-cell
                 v-for="(item,index) in searchList"
                 :key="index"
@@ -16,7 +16,7 @@
         <div class="content" v-show="isSearch">
             <div class="title">热门搜索</div>
             <ul class="hotList">
-                <li v-for="(item,index) in hotSearchList" :key="index">{{item.first}}</li>
+                <li v-for="(item,index) in hotSearchList" :key="index" @click="handleHotSearchAction(index)">{{item.first}}</li>
             </ul>
         </div>
     </div>
@@ -27,6 +27,7 @@ import {
     getNetEaseMusicSearch,
     getNetEaseMusicHotSearch,
     getNetEaseMusicUrl,
+    getNetEaseMusicAlbum,
     getNetEaseMusicCheckCopyright
 } from '@services'
 import {
@@ -40,7 +41,8 @@ export default {
             value:'',
             isSearch: true,
             searchList: [],
-            hotSearchList:[]
+            hotSearchList:[],
+            searchWord:''
         }
     },
     methods:{
@@ -53,14 +55,19 @@ export default {
             if(keyword){
                 this.timer = setTimeout(() => {
                     this.isSearch = false;
-                    getNetEaseMusicSearch(keyword).then(data=>{
-                        this.searchList = data
+                    getNetEaseMusicSearch(keyword).then(res=>{
+                        if (res) {
+                            this.searchList = res
+                        }
                     })
                 }, 400)
             }else{
                 getNetEaseMusicHotSearch().then(res=>{
-                    this.hotSearchList = res
-                    this.isSearch = true
+                    if (res) {
+                        this.hotSearchList = res
+                        this.isSearch = true
+                    }
+                    
                 })
             }
         },
@@ -73,6 +80,9 @@ export default {
         handleTitleData(name){
             return filterSongName(name)
         },
+        handleHotSearchAction(index){
+            this.searchWord = this.hotSearchList[index].first
+        },
         playSong(index){
             new Promise(resolve=>{
                 //是否有版权
@@ -81,13 +91,26 @@ export default {
                         resolve(res.success)
                     }
                 })
+                
             })
-            .then((isCopyright)=>{
+            .then(isCopyright=>{
                 if(isCopyright){
-                    getNetEaseMusicUrl(this.searchList[index].songId).then(res=>{
-                        this.searchList[index].songInfo = res
-                        bus.emit('addSong',this.searchList[index])
-                        // bus.emit('playSong')
+                    new Promise(respose=>{
+                        getNetEaseMusicUrl(this.searchList[index].songId).then(res=>{
+                            if (res) {
+                                this.searchList[index].songInfo = res
+                                respose('success')
+                            }
+                            
+                        })
+                    })
+                    .then(()=>{
+                        getNetEaseMusicAlbum(this.searchList[index].alibumId).then(res=>{
+                            if (res) {
+                                this.searchList[index].picUrl = res.picUrl
+                                bus.emit('addSong',this.searchList[index])
+                            }
+                        })
                     })
                 }else{
                     console.log('当前歌曲没有版权!')

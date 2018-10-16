@@ -35,11 +35,18 @@ const NETEASE_MUSIC_URL_URL = '/song/url'
 */
 const NETEASE_MUSIC_CHECKCOPY_URL = '/check/music'
 
+/*
+    NETEASE获取专辑内容的请求接口
+    参数：
+        必填：String:id 专辑id
+*/
+const NETEASE_MUSIC_ALBUM_URL = '/album'
 
 export default {
     BANGUMI_BOOK_DETAIL_URL,
     NETEASE_MUSIC_SEARCH_URL,
     NETEASE_MUSIC_HOTSEARCH_URL,
+    NETEASE_MUSIC_ALBUM_URL,
     NETEASE_MUSIC_URL_URL,
     NETEASE_MUSIC_CHECKCOPY_URL
 }

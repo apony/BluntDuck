@@ -35,6 +35,7 @@ export default {
                 iconf:'search'
             },
             playList:[{
+                id:'0',
                 title: '前前前世',
                 artist: 'RADWIMPS',
                 src: 'https://moeplayer.b0.upaiyun.com/aplayer/yourname.mp3',
@@ -57,13 +58,17 @@ export default {
                 }
             })
             if (!isHas) {
-                this.playList.push({
+                let firstSong = this.playList[0]
+                this.playList.splice(0,1,{
                     id: currentSong.songId,
                     title: currentSong.songName,
                     artist: currentSong.singer[0].singerName,
                     src: currentSong.songInfo[0].url,
-                    pic: currentSong.songInfo[0].pic
+                    pic: currentSong.picUrl,
+                    lrc: ''
                 })
+                this.playList.push(firstSong)
+                // todo 切歌异常暂停......
             }
         })
         bus.on('playSong',()=>{

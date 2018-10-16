@@ -45,6 +45,7 @@ export function getNetEaseMusicSearch(keywords){
                         songId: item.id,
                         songName: item.name,
                         albumDescribe: item.album.name,
+                        alibumId: item.album.id,
                         singer: item.artists.map(childItem=>{
                             return {
                                 singerId: childItem.id,
@@ -131,6 +132,31 @@ export function getNetEaseMusicHotSearch(){
         .then(result=>{
             if(result.status===200){
                 let data = result.data.result.hots
+                resolve(data)
+            }
+        })
+        .catch(error=>{
+            console.log('失败');
+            console.log(error);
+        })
+    })
+    
+}
+
+/**
+ * @description 获得专辑内容
+ * @author apony
+ * @date 2018-10-13
+ * @param {*} id 专辑id 必填
+ */
+export function getNetEaseMusicAlbum(id){
+    return new Promise(resolve=>{
+        axios.get(API.NETEASE_MUSIC_ALBUM_URL,{
+            id
+        })
+        .then(result=>{
+            if(result.status===200){
+                let data = result.data.album
                 resolve(data)
             }
         })
