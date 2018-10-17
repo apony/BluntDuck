@@ -728,4 +728,75 @@ npm run build
         ```
         
     * 笔记：
-    >虽然官方没有明确定义自定义修改样式，但是还是可以通过编译后的类名来选择样式的，在加上`>>>穿透标识符`简直天下无敌呐
+    >虽然官方没有明确定义自定义修改样式，但是还是可以通过编译后的类名来选择样式的，再加上`>>>穿透标识符`简直天下无敌呐
+    
+    ----
+* 7.关于多个异步代码同时执行(异步代码包括：请求，延时计时器等)
+    >* 例题：很经典的例题，它涉及异步，也可以扩展为闭包
+    ```js
+    console.log(1)
+    setTimeout(function(){
+        console.log(2)
+    },2000)
+    axios.get('/loginout?id=123456').then(()=>{console.log(3)})
+    console.log(4)
+    //答案显而易见 1 4 (2 3 异步线程，执行顺序未知)
+    ```
+    >* 用法：
+    ```js
+    //多个异步代码同步执行
+    new Promise((resolve,reject)=>{
+        setTimeout(function(){
+        console.log(2)
+        resolve('执行下一个异步')
+        },2000)
+    })
+    .then(()=>{
+        axios.get('/loginout?id=123456')
+        .then(()=>{console.log(3)})
+    })
+    // 2 3
+    
+    ```
+    >* 原理：只有Promise对象接收到resolve()指令才会执行then回调函数
+    >* 场景：多个接口请求回来的数据，然后组装成新的对象返回页面
+    >* 问题：异步操作获取数据，同步操作存储数据，这时候导致该同步操作装载的数据为空，且我们的神器Promise只能控制两个异步代码......
+    
+    >* 解决：利用函数返回的特性返回一个promise对象然后再外面调用then方法即可
+    ```js
+    var pm = new Promise((resolve)=>{
+        setTimeout(function(){
+            console.log(1)
+            resolve('next')
+        },2000)
+    })
+    function ajaxAsyn(){
+        return new Promise((resolve)=>{
+            axios.get('/loginout?id=123456')
+            .then(()=>{
+                console.log(2)
+                resolve('next')
+            })
+        })
+    }
+    function calcTimeAsyn(){
+        return new Promise((resolve)=>{
+            setTimeout(function(){
+                console.log(3)
+                resolve('next')
+            },1000)
+        })
+    }
+    
+    pm.then(()=>{
+        return ajaxAsyn()
+    })
+    .then(()=>{
+        return calcTimeAsyn()
+    })
+    .then(()=>{
+        console.log(4)
+    })
+    // 执行顺序： 1 2 3 4
+    ```
+    >* 笔记：Promise可以解决一些从各个接口异步请求回来的数据同步拼接时尴尬问题

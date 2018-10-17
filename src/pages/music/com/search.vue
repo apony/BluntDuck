@@ -28,6 +28,7 @@ import {
     getNetEaseMusicHotSearch,
     getNetEaseMusicUrl,
     getNetEaseMusicAlbum,
+    getNetEaseMusicLyric,
     getNetEaseMusicCheckCopyright
 } from '@services'
 import {
@@ -84,37 +85,64 @@ export default {
             this.searchWord = this.hotSearchList[index].first
         },
         playSong(index){
-            new Promise(resolve=>{
-                //是否有版权
+            let pm = new Promise((resolve=>{
                 getNetEaseMusicCheckCopyright(this.searchList[index].songId).then(res=>{
                     if(res.message==='ok'){
                         resolve(res.success)
                     }
                 })
-                
-            })
-            .then(isCopyright=>{
-                if(isCopyright){
-                    new Promise(respose=>{
-                        getNetEaseMusicUrl(this.searchList[index].songId).then(res=>{
-                            if (res) {
-                                this.searchList[index].songInfo = res
-                                respose('success')
-                            }
-                            
-                        })
-                    })
-                    .then(()=>{
-                        getNetEaseMusicAlbum(this.searchList[index].alibumId).then(res=>{
-                            if (res) {
-                                this.searchList[index].picUrl = res.picUrl
-                                bus.emit('addSong',this.searchList[index])
-                            }
-                        })
-                    })
-                }else{
+            }))
+            //链式promise结构解决多个异步按顺序响应数据
+            pm.then((isCopyright)=>{
+                if (isCopyright) {
+                    return this.ajaxLyricAsyn(index)
+                }
+                else{
                     console.log('当前歌曲没有版权!')
                 }
+            })
+            .then(()=>{
+                return this.ajaxUrlAsyn(index)
+            })
+            .then(()=>{
+                return this.ajaxAlbumPicAsyn(index)
+            })
+            .then(()=>{
+                bus.emit('addSong',this.searchList[index])
+            })
+            
+        },
+        ajaxUrlAsyn(index){
+            return new Promise(resolve=>{
+                getNetEaseMusicUrl(this.searchList[index].songId).then(res=>{
+                    if (res) {
+                        this.searchList[index].songInfo = res
+                        resolve()
+                    }
+                    
+                })
+            })
+        },
+        ajaxAlbumPicAsyn(index){
+            return new Promise(resolve=>{
+                getNetEaseMusicAlbum(this.searchList[index].alibumId).then(res=>{
+                    if (res) {
+                        this.searchList[index].picUrl = res.picUrl
+                        resolve()
+                        
+                    }
+                })
+            })
+        },
+        ajaxLyricAsyn(index){
+            return new Promise(resolve=>{
+                getNetEaseMusicLyric(this.searchList[index].songId).then(res=>{
+                    if (res) {
+                        this.searchList[index].lrc = res.lyric
+                        resolve()
+                        
+                    }
+                })
             })
         }
     },

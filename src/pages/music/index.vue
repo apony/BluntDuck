@@ -5,11 +5,11 @@
             <div>音乐</div>
         </div>
         <keep-alive>
-            <aplayer ref="player"
+            <aplayer ref="player" @click.native="test"
                 :music="playList[0]"
                 :list="playList"
                 repeat="list"
-                autoplay shuffle listFolded preload
+                autoplay shuffle listFolded preload showLrc
             />
         </keep-alive>
         <router-view></router-view>
@@ -36,17 +36,20 @@ export default {
             },
             playList:[{
                 id:'0',
-                title: '前前前世',
-                artist: 'RADWIMPS',
-                src: 'https://moeplayer.b0.upaiyun.com/aplayer/yourname.mp3',
-                pic: 'https://moeplayer.b0.upaiyun.com/aplayer/yourname.jpg',
-                lrc: 'https://moeplayer.b0.upaiyun.com/aplayer/yourname.lrc',
+                title: '可不可以',
+                artist: '张紫豪',
+                src: 'http://www.ytmp3.cn/down/53836.mp3',
+                pic: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1539765514&di=cfc0abef140fe1e8cb06f617456f0874&src=http://l.b2b168.com/2017/06/15/15/201706151546106156274.jpg',
+                lrc: '[by:Meurababe][00:00.00] 作曲 : 刘伟锋[00:02.343] 作词 : 刘伟锋[00:04.29]编曲：刘伟锋[00:06.16]录制混缩：巨人先生[00:08.16]出品：西亚斯音频工作室[00:10.04]企划：谭梦[00:11.04]发行公司：恬音文化[00:12.50]巧婷，我知道你在看[00:14.30]我只想对你说[00:15.50]I Love You[00:16.50]说好带你流浪[00:20.09]而我却半路返航[00:22.62]坠落自责的海洋[00:27.25]张同学，我喜欢你[00:30.72]发现离不开你[00:34.21]我开始决定回去[00:37.80]你已不在原地[00:42.64]有一份爱情叫做腊鸭😘[00:44.02]我可以接受你的所有[00:46.16]所有小脾气[00:47.54]我可以带你去吃很多[00:49.73]很多好东西[00:51.13]我可以偶尔给你带来[00:53.24]带来小甜蜜[00:54.65]就像前几年那样[00:56.05]每天都会给你制造很多惊喜[00:58.73]你的心伤 我能治愈[01:01.80]我的快乐也只有你能给予[01:06.26]我们就别再分离[01:11.73]可不可以 和你在一起[01:15.30]我们之间有太多回忆[01:18.82]爱上了你 没什么道理[01:22.31]只是刚好情窦初开遇到你[01:25.82]不希望我的未来不是你[01:29.44]只愿意和你永远不分离[01:33.03]趁我还没有过保质期[01:36.59]趁你还愿意[01:39.64][02:10.34]三年的回忆[02:13.04][02:13.82]我如何抹去[02:17.42]能不能再拾起[02:22.29][02:24.53]永远在一起[02:27.58][02:28.08]还没有过期[02:30.64][02:31.64]我们就别再分离[02:36.44][02:37.23]可不可以 和你在一起[02:40.44]我们之间有太多回忆[02:44.33]爱上了你 没什么道理[02:47.72]只是刚好情窦初开遇到你[02:51.29]不希望我的未来不是你[02:54.79]只愿意和你永远不分离[02:58.36]趁我还没有过保质期[03:01.91]趁你还愿意[03:05.34]可不可以 和你在一起[03:09.10]我们之间有太多回忆[03:12.57]爱上了你 没什么道理[03:16.01]只是刚好情窦初开遇到你[03:19.63]不希望我的未来不是你[03:23.28]只愿意和你永远不分离[03:26.79]趁我还没有过保质期[03:30.29]趁你还愿意[03:33.38][03:33.92]趁我还没有过保质期[03:38.15][03:41.23]趁你还愿意',
             }]
         }
     },
     methods:{
         play(){
             this.$refs.player.play()
+        },
+        test(){ 
+            console.log('测试播放列表')
         }
     },
     mounted() {
@@ -65,7 +68,7 @@ export default {
                     artist: currentSong.singer[0].singerName,
                     src: currentSong.songInfo[0].url,
                     pic: currentSong.picUrl,
-                    lrc: ''
+                    lrc: currentSong.lrc
                 })
                 this.playList.push(firstSong)
                 // todo 切歌异常暂停......

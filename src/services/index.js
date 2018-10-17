@@ -146,7 +146,7 @@ export function getNetEaseMusicHotSearch(){
 /**
  * @description 获得专辑内容
  * @author apony
- * @date 2018-10-13
+ * @date 2018-10-16
  * @param {*} id 专辑id 必填
  */
 export function getNetEaseMusicAlbum(id){
@@ -157,6 +157,31 @@ export function getNetEaseMusicAlbum(id){
         .then(result=>{
             if(result.status===200){
                 let data = result.data.album
+                resolve(data)
+            }
+        })
+        .catch(error=>{
+            console.log('失败');
+            console.log(error);
+        })
+    })
+    
+}
+
+/**
+ * @description 获得歌词
+ * @author apony
+ * @date 2018-10-16
+ * @param {*} id 歌曲id 必填
+ */
+export function getNetEaseMusicLyric(id){
+    return new Promise(resolve=>{
+        axios.get(API.NETEASE_MUSIC_LYRIC_URL,{
+            id
+        })
+        .then(result=>{
+            if(result.status===200){
+                let data = result.data.lrc
                 resolve(data)
             }
         })
