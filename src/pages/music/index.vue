@@ -5,7 +5,7 @@
             <div>音乐</div>
         </div>
         <keep-alive>
-            <aplayer ref="player" @click.native="test"
+            <aplayer ref="player" @click.native="openDetail"
                 :music="playList[0]"
                 :list="playList"
                 repeat="list"
@@ -48,8 +48,8 @@ export default {
         play(){
             this.$refs.player.play()
         },
-        test(){ 
-            console.log('测试播放列表')
+        openDetail(){ 
+            console.log('打开列表播放详情')
         }
     },
     mounted() {

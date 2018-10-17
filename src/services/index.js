@@ -82,7 +82,9 @@ export function getNetEaseMusicUrl(id){
                     return {
                         id: item.id,
                         size: item.size,
-                        url: item.url,
+                        // url: item.url,
+                        //url链接取用官方稳定外链链接,网易云服务器缓存链接有时间限制
+                        url: `http://music.163.com/song/media/outer/url?id=${id}.mp3`,
                         type: item.type
                     }
                 })

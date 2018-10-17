@@ -8,10 +8,14 @@
                 :label="handleDescribeData(item)"
                 @click.native="playSong(index)"
                 >
-                <span class="more">...</span>
+                <span class="more" @click="moreAction(index)">...</span>
             </mt-cell>
             
         </mt-search>
+        <mt-actionsheet
+        :actions="moreList" cancelText="取消"
+        v-model="isMoreFlag">
+        </mt-actionsheet>
         <div class="gobackbtn" @click="handleGobackAction"><</div>
         <div class="content" v-show="isSearch">
             <div class="title">热门搜索</div>
@@ -43,7 +47,14 @@ export default {
             isSearch: true,
             searchList: [],
             hotSearchList:[],
-            searchWord:''
+            searchWord:'',
+            //更多模态框判断
+            isMoreFlag:false,
+            downLoadIndex:0,
+            moreList:[{
+                name: '下载',
+                method: this.downLoadingMusic
+            }]
         }
     },
     methods:{
@@ -83,6 +94,10 @@ export default {
         },
         handleHotSearchAction(index){
             this.searchWord = this.hotSearchList[index].first
+        },
+        downLoadingMusic(){
+            
+            window.open(this.searchList[this.downLoadIndex].songInfo[0].url,'_blank')
         },
         playSong(index){
             let pm = new Promise((resolve=>{
@@ -144,6 +159,13 @@ export default {
                     }
                 })
             })
+        },
+        moreAction(index){
+            if (!this.isMoreFlag) {
+                this.downLoadIndex = index
+                this.isMoreFlag = true
+            }
+            
         }
     },
     mounted() {
