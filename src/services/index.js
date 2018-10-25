@@ -28,15 +28,21 @@ export function getBangumiBookDetail(paramObj){
 }
 
 /**
- * @description 获得搜索音乐结果
+ * @description 获得搜索结果
  * @author apony
  * @date 2018-10-10
  * @param {*} keywords 关键词 必填
+ * @param {*} limit 限制条数 选填 
+ * @param {*} offset 偏移量 选填 offset=(页数 -1)*limit, 默认为 0
+ * @param {*} type 搜索类型 选填 1: 单曲 10: 专辑 100: 歌手 1000: 歌单 1002: 用户 1004: MV 1006: 歌词 1009: 电台 , 默认为 1
  */
-export function getNetEaseMusicSearch(keywords){
+export function getNetEaseMusicSearch(keywords,type,limit,offset){
     return new Promise(resolve=>{
         axios.get(API.NETEASE_MUSIC_SEARCH_URL,{
-            keywords
+            keywords,
+            type,
+            limit,
+            offset
         })
         .then(result=>{
             if(result.status===200){
@@ -158,7 +164,9 @@ export function getNetEaseMusicAlbum(id){
         })
         .then(result=>{
             if(result.status===200){
-                let data = result.data.album
+                let data = {}
+                data.album = result.data.album
+                data.songsInfo = result.data.songs
                 resolve(data)
             }
         })

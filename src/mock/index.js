@@ -11,6 +11,12 @@ module.exports = function(app){
     //     },
     // }))
 
+    //mock模拟数据
+    app.use('/api/initSong', function (rep, res) {
+        var json = util.getJsonFile('./song.json')
+        res.json(Mock.mock(json))
+    })
+
     //代理网易云音乐node版服务器(二次代理...)
     app.use('/api',httpProxyMiddleware({
         target:'http://localhost:3000',
@@ -19,9 +25,5 @@ module.exports = function(app){
         '^/api/' : '',
         },
     }))
-    //mock模拟数据
-    // app.get('/api/test', function (rep, res) {
-    //     var json = util.getJsonFile('./book.json')
-    //     res.json(Mock.mock(json))
-    // })
+    
 }

@@ -104,5 +104,6 @@ module.exports = {
             .set('@utils', path.join(__dirname, 'src/utils'))
             .set('@mock', path.join(__dirname, 'src/mock'))
             .set('@filters', path.join(__dirname, 'src/filters'))
+            .set('@store', path.join(__dirname, 'src/store'))
     }
 }
