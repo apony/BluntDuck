@@ -20,6 +20,7 @@
 import Vuex from 'vuex'
 import bus from '@utils/pubsub.js'
 import {getInitSong} from '@services/mockData.js'
+import {randomEasy} from '@utils/math.js'
 export default {
     data(){
         return{
@@ -57,7 +58,7 @@ export default {
             this.$refs.player.play()
         },
         openDetail(){
-            console.log('打开列表播放详情')
+            // console.log('打开列表播放详情')
         },
         parseSongData(item){
             return {
@@ -73,14 +74,26 @@ export default {
     mounted() {
         if (!sessionStorage.getItem('songList')) {
             JSON.stringify(sessionStorage.setItem('songList','[]'))
+            //mock初始歌曲数据
             getInitSong().then(initSong=>{
                 this.$store.dispatch('song/modifyPlayList',initSong)
-                this.$store.dispatch('song/modifyCurrentSong',0)
+                this.$store.dispatch('song/modifyCurrentSong',this.playListData[0].songId)
                 this.$router.go(0)
+                this.play()
             })
-            
+        }else{
+            let randomIndex = randomEasy(0,this.playListData.length)
+            this.$store.dispatch('song/modifyCurrentSong',this.playListData[randomIndex].songId)
+            this.play()
         }
-    }  
+        bus.on('playSong',()=>{
+            console.log('播放音频')
+            this.play()
+        })
+    },
+    destroyed() {
+        bus.rm('playSong')
+    },
 }
 
 </script>

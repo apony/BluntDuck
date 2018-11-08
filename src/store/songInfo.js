@@ -5,8 +5,12 @@ export default {
         playList: JSON.parse(sessionStorage.getItem('songList'))||[]
     },
     mutations: {
-        setCurrentSong(state,params){
-            state.currentSongPoint = params
+        toggleSong(state,params){
+            state.playList.map((item,index)=>{
+                if(item.songId===params){
+                    state.currentSongPoint = index
+                }
+            })
         },
         addPlayList(state,params){
             state.playList.push(params)
@@ -17,7 +21,7 @@ export default {
     },
     actions: {
         modifyCurrentSong(context,params){
-            context.commit('setCurrentSong',params)
+            context.commit('toggleSong',params)
         },
         modifyPlayList(context,params){
             context.commit('addPlayList',params)

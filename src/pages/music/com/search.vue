@@ -4,22 +4,38 @@
             <mt-search  placeholder="搜索"  v-model="searchWord" @input="searchRes">
                 <div class="nav">
                     <div class="nav-wrapper">
-                        <mt-button size="small" v-for="(tabItem,tabIndex) in searchType" @click.native.prevent="searchActive = tabItem" :class="tabItem===searchActive?'toggleTabActive':''">{{searchTitle[tabIndex]}}</mt-button> 
+                        <mt-button size="small" v-for="(tabItem,tabIndex) in searchType" :key="tabIndex"
+                            @click.native.prevent="searchAction(tabItem)"
+                            :class="tabItem===searchActive?'toggleTabActive':''"
+                        >{{searchTitle[tabIndex]}}</mt-button> 
                     </div>
                 </div>
                 <div class="page-tab-container">
                     <mt-tab-container v-model="searchActive">
                         <mt-tab-container-item v-for="(tabItem,tabIndex) in searchType" :key="tabIndex" :id="tabItem">
                             <!--单曲搜索-->
-                            <div v-if="tabItem==='singleSong'">
+                            <div v-if="tabItem===SEARCHCONDITION.SINGLESONG">
                                 <mt-cell
-                                    v-for="(item,index) in singleSongList"
+                                    v-for="(item,index) in singleSongObj.singleSongList"
                                     :key="index"
-                                    :title="handleTitleData(item.songName)"
-                                    :label="handleDescribeData(item)"
+                                    :title="handleFilterData(item.songName,'music','songName')"
+                                    :label="handleFilterData(item,'music','songDescribe')"
                                     @click.native="handleAjaxCurrentSongInfo(index)"
-                                    >
+                                >
                                     <span class="more" @click="moreAction(index)">...</span>
+                                </mt-cell>
+                            </div>
+                            <!--视频搜索-->
+                            <div v-if="tabItem===SEARCHCONDITION.VIDEO" class="videoCell">
+                                <mt-cell
+                                    v-for="(item,index) in videoObj.videoList"
+                                    :key="index"
+                                    >
+                                    <p class="videoTitle">{{item.title}}</p>
+                                    <p class="videoInfo">
+                                        {{handleFilterData(item.duration,'video','videoLength')+handleFilterData(item.creator,'video','videoCreator')}}
+                                    </p>
+                                    <img slot="icon" :src="item.coverUrl" width="135" height="75">
                                 </mt-cell>
                             </div>
 
@@ -32,7 +48,7 @@
             v-model="isMoreFlag">
             </mt-actionsheet>
             <div class="gobackbtn" @click="handleGobackAction"><</div>
-            <div class="content" v-show="isSearch">
+            <div class="content" v-show="isHotSearch">
                 <div class="title">热门搜索</div>
                 <ul class="hotList">
                     <li v-for="(item,index) in hotSearchList" :key="index" @click="handleHotSearchAction(index)">{{item.first}}</li>
@@ -53,17 +69,32 @@ import {
     getNetEaseMusicCheckCopyright
 } from '@services'
 import {
-    filterDescribe,
+    filterSongDescribe,
     filterSongName,
     filterSongLength
-} from '@filters/songInfoFilter.js'
+} from '@filters/music/songInfoFilter.js'
+import {
+    filterVideoPlayTime,
+    fliterVideoCreator,
+    filterVideoLength
+} from '@filters/music/videoInfoFilter.js'
 import bus from '@utils/pubsub.js'
 export default {
     data(){
         return{
             value:'',
-            isSearch: true,
-            singleSongList: [],
+            isHotSearch: true,
+            //单曲数据
+            singleSongObj: {
+                singleSongList:[],
+                singleSongLength: 0
+            },
+            //视频数据
+            videoObj: {
+                videoList:[],
+                videoLength: 0
+            },
+            videoList: [],
             hotSearchList:[],
             searchWord:'',
             //更多的底部模态框判断
@@ -77,50 +108,109 @@ export default {
             isAjaxData:true,
             //搜索类型
             searchType:[
-                'singleSong','video','singer','album','songList','radio','user'
+                '1','1014','100','10','1000','1009','1002'
             ],
             searchTitle:[
                 '单曲','视频','歌手','专辑','歌单','主播电台','用户'
             ],
-            searchActive:'singleSong',
+            searchActive:'1',
 
+            SEARCHCONDITION:{
+                SINGLESONG: '1',
+                VIDEO: '1014',
+                SINGER: '100',
+                ALBUM: '10',
+                SONGLIST: '1000',
+                RADIO: '1009',
+                USER: '1002',
+                LYRIC: '1006'
+            }
             
         }
     },
     methods:{
+        resetSearchData(type){
+            //   '1', '1014','100', '10','1000', '1009',  '1002'
+            // '单曲','视频','歌手','专辑','歌单','主播电台','用户'
+            switch (type) {
+                case "1":
+                    this.singleSongObj.singleSongList = []
+                    this.singleSongObj.singleSongLength = 0
+                    break;
+                case "1014":
+                    this.videoObj.videoList = []
+                    this.videoObj.videoLength = 0
+                    break;
+                default:
+                    this.singleSongObj.singleSongList = []
+                    this.singleSongObj.singleSongLength = 0
+                    this.videoObj.videoList = []
+                    this.videoObj.videoLength = 0
+                    break;
+            }
+        },
         searchRes(keyword){
             //原因：input事件为高频繁触发事件，会不经意增加向服务器请求的次数 解决：延时请求
             if(this.timer){
-                this.singleSongList = []
+                this.resetSearchData()
                 clearTimeout(this.timer);
             }
             if(keyword){
+                this.isHotSearch = false;
                 this.timer = setTimeout(() => {
-                    this.isSearch = false;
-                    getNetEaseMusicSearch(keyword,1,20).then(res=>{
-                        if (res) {
-                            this.singleSongList = res
-                        }
-                    })
+                    this.handleSearchResult(keyword,"1",20)
                 }, 400)
             }else{
-                getNetEaseMusicHotSearch().then(res=>{
-                    if (res) {
-                        this.hotSearchList = res
-                        this.isSearch = true
-                    }
-                    
-                })
+                this.isHotSearch = true
             }
         },
         handleGobackAction(){
             this.$router.go(-1)
         },
-        handleDescribeData(songInfo){
-            return filterDescribe(songInfo)
+        //标志特定关键字
+        handleMarkKeyWord(kw,data){
+            let markWord = "/"+data+"/g"
+            
         },
-        handleTitleData(name){
-            return filterSongName(name)
+        //读取过滤器 data要过滤的数据 datatype相对应的过滤器 classify具体的字段分类
+        handleFilterData(data,datatype,classify){
+            // 歌曲过滤器
+            if(datatype==="music"){
+                switch (classify) {
+                    //歌曲描述：显示
+                    case "songDescribe":
+                        return filterSongDescribe(data)
+                        break
+                    //歌曲名字：过长
+                    case "songName":
+                        return filterSongName(data)
+                        break
+                    //歌曲时长：获取,格式
+                    case "songLength":
+                        return filterSongLength(data)
+                        break
+                    default:
+                        break
+                }
+            // 视频过滤器
+            }else if(datatype==="video"){
+                switch (classify) {
+                    //视频播放次数：格式
+                    case "videoPlayTime":
+                        return filterVideoPlayTime(data)
+                        break
+                    //视频上传者：显示
+                    case "videoCreator":
+                        return fliterVideoCreator(data)
+                        break
+                    //视频播放时长：格式
+                    case "videoLength":
+                        return filterVideoLength(data)
+                        break
+                    default:
+                        break
+                }
+            }
         },
         handleHotSearchAction(index){
             this.searchWord = this.hotSearchList[index].first
@@ -131,20 +221,20 @@ export default {
         },
         getDownLoadUrl(currentIndex){
             //使用官方外链url地址，不需要请求url接口
-            return `http://music.163.com/song/media/outer/url?id=${this.singleSongList[currentIndex].songId}.mp3`
+            return `http://music.163.com/song/media/outer/url?id=${this.singleSongObj.singleSongList[currentIndex].songId}.mp3`
         },
         addSongList(currentIndex){
-            this.$store.dispatch('song/modifyCurrentSong',currentIndex)
             let isExist = false
             this.$store.state.song.playList.map(item=>{
-                if(item.songId === this.singleSongList[currentIndex].songId){
+                if(item.songId === this.singleSongObj.singleSongList[currentIndex].songId){
                     isExist = true
                 }
             })
             if(!isExist){
-                this.$store.dispatch('song/modifyPlayList',this.singleSongList[currentIndex])
+                this.$store.dispatch('song/modifyPlayList',this.singleSongObj.singleSongList[currentIndex])
             }
-            
+            this.$store.dispatch('song/modifyCurrentSong',this.singleSongObj.singleSongList[currentIndex].songId)
+            bus.emit('playSong','')
         },
         handleAjaxCurrentSongInfo(currentIndex){
             let pm = this.ajaxCopyrightAsyn(currentIndex)
@@ -173,7 +263,7 @@ export default {
         //获取指定歌曲版权
         ajaxCopyrightAsyn(currentIndex){
             return new Promise((resolve=>{
-                getNetEaseMusicCheckCopyright(this.singleSongList[currentIndex].songId).then(res=>{
+                getNetEaseMusicCheckCopyright(this.singleSongObj.singleSongList[currentIndex].songId).then(res=>{
                     if(res.message==='ok'){
                         resolve(res.success)
                     }
@@ -183,9 +273,9 @@ export default {
         //获取指定歌曲基本信息
         ajaxUrlAsyn(currentIndex){
             return new Promise(resolve=>{
-                getNetEaseMusicUrl(this.singleSongList[currentIndex].songId).then(res=>{
+                getNetEaseMusicUrl(this.singleSongObj.singleSongList[currentIndex].songId).then(res=>{
                     if (res) {
-                        this.singleSongList[currentIndex].songInfo = res
+                        this.singleSongObj.singleSongList[currentIndex].songInfo = res
                         resolve()
                     }
                     
@@ -195,10 +285,10 @@ export default {
         //获取指定歌曲属性信息
         ajaxAlbumPicAsyn(currentIndex){
             return new Promise(resolve=>{
-                getNetEaseMusicAlbum(this.singleSongList[currentIndex].alibumId).then(res=>{
+                getNetEaseMusicAlbum(this.singleSongObj.singleSongList[currentIndex].alibumId).then(res=>{
                     if (res) {
-                        this.singleSongList[currentIndex].picUrl = res.album.picUrl
-                        this.singleSongList[currentIndex].songLength = filterSongLength(res.songsInfo[0].dt)
+                        this.singleSongObj.singleSongList[currentIndex].picUrl = res.album.picUrl
+                        this.singleSongObj.singleSongList[currentIndex].songLength = handleFilterData(res.songsInfo[0].dt,"music","songLength")
                         resolve()
                     }
                 })
@@ -207,20 +297,51 @@ export default {
         //获取指定歌曲的歌词
         ajaxLyricAsyn(currentIndex){
             return new Promise(resolve=>{
-                getNetEaseMusicLyric(this.singleSongList[currentIndex].songId).then(res=>{
+                getNetEaseMusicLyric(this.singleSongObj.singleSongList[currentIndex].songId).then(res=>{
                     if (res) {
-                        this.singleSongList[currentIndex].lrc = !res.nolyric?res.lyric:''
+                        this.singleSongObj.singleSongList[currentIndex].lrc = !res.nolyric?res.lyric:''
                         resolve()
                     }
                 })
             })
         },
+        // 单曲按钮事件
         moreAction(currentIndex){
             if (!this.isMoreFlag) {
                 this.downLoadIndex = currentIndex
                 this.isMoreFlag = true
                 this.isAjaxData = false
             }
+        },
+        searchAction(searchType){
+            this.searchActive = searchType
+            switch (searchType) {
+                case "1":
+                    if(this.singleSongObj.singleSongLength!==0)break
+                case "1014":
+                    if(this.videoObj.videoLength!==0)break
+                default:
+                    this.handleSearchResult(this.searchWord,searchType,20)
+                    break
+            }
+            
+        },
+        handleSearchResult(kw,type,limit,offset){
+            //   '1', '1014','100', '10','1000', '1009',  '1002'
+            // '单曲','视频','歌手','专辑','歌单','主播电台','用户'
+            getNetEaseMusicSearch(kw,type,limit,offset).then(res=>{
+                if (res) {
+                    if(type==="1"){
+                        this.singleSongObj.singleSongList = res.songData
+                        this.singleSongObj.singleSongLength = res.songCount
+                    }else if (type==="1014") {
+                        this.videoObj.videoList = res.videoData
+                        this.videoObj.videoLength = res.videoCount
+                        console.log(this.videoObj)
+                    }
+                    
+                }
+            })
             
         }
     },
@@ -228,14 +349,14 @@ export default {
         getNetEaseMusicHotSearch().then(res=>{
             this.hotSearchList = res
         })
-    },
+    }
 }
 </script>
 
 <style scoped>
 .list{
-    width: 2000px;
-    height: 50px;
+    width: 53.333333rem;
+    height: 1.333333rem;
 }
 a:hover {
     text-decoration: none;
@@ -376,5 +497,25 @@ a:hover {
     margin: .133333rem;
     border-radius: .4rem;
     background-color: #eeeeee;
+}
+.videoCell>>>.mint-cell-value{
+    display: block;
+    float: left;
+}
+.videoCell .videoTitle{
+    padding-left: .266667rem;
+    font-size: .373333rem;
+    line-height: .533333rem;
+    color: #000;
+    float: left;
+}
+.videoCell .videoInfo{
+    padding-left: .266667rem;
+    font-size: .293333rem;
+    margin-top: .266667rem;
+    float: left;
+}
+.videoCell .mint-cell img{
+    padding-top: .133333rem;
 }
 </style>
