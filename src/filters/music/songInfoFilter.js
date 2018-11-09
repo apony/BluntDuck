@@ -10,14 +10,7 @@ export function filterSongDescribe(songInfo) {
     singerStr += ` - ${songInfo.albumDescribe}`
     return singerStr
 }
-//过滤搜索时音乐标题过长
-export function filterSongName(name) {
-    if(name.length>=20){
-        return name.substring(0,20) + '...'
-    }else{
-        return name
-    }
-}
+
 //过滤歌曲播放时长
 export function filterSongLength(timeStamp) {
     // let hours = parseInt(timeStamp / (1000 * 60 * 60))

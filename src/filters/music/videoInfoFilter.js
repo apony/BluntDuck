@@ -1,6 +1,6 @@
 //过滤视频总播放次数
 export function filterVideoPlayTime(playTime) {
-    return parseInt(playTime)/10000 + "万"
+    return playTime>100000?parseInt(playTime/10000) + "万":playTime
 }
 //过滤视频上传者
 export function fliterVideoCreator(nameArr) {
@@ -20,5 +20,5 @@ export function filterVideoLength(timeStamp) {
   	let seconds = parseInt(timeStamp % (1000 * 60) / 1000)
     minutes = minutes<10? "0"+minutes: ""+minutes
     seconds = seconds<10? "0"+seconds: ""+seconds
-    return "<span style='color:red'>"+minutes + ":" + seconds+"<span>"
+    return minutes + ":" + seconds
 }

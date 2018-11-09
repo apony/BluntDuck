@@ -1,7 +1,7 @@
 
 @font-face {
   font-family: "iconfont";
-  src:url('iconfont.ttf?t=1536910365042') format('truetype');
+  src: url('iconfont.ttf?t=1541757268788') format('truetype');
 }
 
 .iconfont {
@@ -12,17 +12,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* .iconfont:hover{
-  color: #f09199;
-} */
+
+.icon-bofang:before { content: "\e611"; }
 
 .icon-tushu:before { content: "\e65d"; }
 
 .icon-music:before { content: "\e700"; }
 
+.icon-shipin:before { content: "\e60f"; }
+
 .icon-yuedu:before { content: "\e763"; }
 
-.icon-youxi:before { content: "\e764"; }
+.icon-youxi-copy:before { content: "\e764"; }
 
 .icon-youxi-copy:before { content: "\e765"; }
 
@@ -31,4 +32,6 @@
 .icon-music-copy:before { content: "\e767"; }
 
 .icon-tushu-copy:before { content: "\e768"; }
+
+.icon-yonghu2-copy:before { content: "\e769"; }
 

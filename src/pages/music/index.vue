@@ -45,7 +45,7 @@ export default {
             playListData: (state)=>state.song.playList
         }),
         currentSong(){
-            return this.parseSongData(this.playListData[this.songPoint])
+            return this.playList[this.songPoint]
         },
         playList(){
             return this.playListData.map(item=>{
@@ -55,7 +55,7 @@ export default {
     },
     methods:{
         play(){
-            this.$refs.player.play()
+            // this.$refs.player.play()
         },
         openDetail(){
             // console.log('打开列表播放详情')

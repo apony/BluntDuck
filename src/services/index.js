@@ -79,6 +79,22 @@ export function getNetEaseMusicSearch(keywords,type,limit,offset){
                     })
                     data.videoData = videoData
                     data.videoCount = result.data.result.videoCount
+                }else if(type==="100"){
+                    let singerData = result.data.result.artists.map(item=>{
+                        return {
+                            accountId: item.accountId, //入驻网易云的歌手id
+                            singerId: item.id, // 歌手id
+                            albumSize: item.albumSize, // 专辑数量
+                            mvSize: item.mvSize, // mv数量
+                            singerCoverId: item.picId,
+                            singerCover: item.picUrl, // 歌手封面
+                            standbyCover: item.img1v1Url, // 备用封面
+                            singerName: item.name, // 歌手名
+                        }
+                    })
+
+                    data.singerData = singerData
+                    data.singerCount = result.data.result.artistCount
                 }
                 resolve(data)
             }

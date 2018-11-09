@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="list">
-            <mt-search  placeholder="搜索"  v-model="searchWord" @input="searchRes">
+            <mt-search  placeholder="搜索"  v-model="searchWord" @input="searchRes" :class="searchWord===''&&!isHotSearch?'searchBar':''">
                 <div class="nav">
                     <div class="nav-wrapper">
                         <mt-button size="small" v-for="(tabItem,tabIndex) in searchType" :key="tabIndex"
@@ -14,31 +14,52 @@
                     <mt-tab-container v-model="searchActive">
                         <mt-tab-container-item v-for="(tabItem,tabIndex) in searchType" :key="tabIndex" :id="tabItem">
                             <!--单曲搜索-->
-                            <div v-if="tabItem===SEARCHCONDITION.SINGLESONG">
+                            <div v-if="tabItem===SEARCHCONDITION.SINGLESONG" class="songCell">
                                 <mt-cell
                                     v-for="(item,index) in singleSongObj.singleSongList"
                                     :key="index"
-                                    :title="handleFilterData(item.songName,'music','songName')"
-                                    :label="handleFilterData(item,'music','songDescribe')"
                                     @click.native="handleAjaxCurrentSongInfo(index)"
                                 >
-                                    <span class="more" @click="moreAction(index)">...</span>
+                                    <ul class="songInfo">
+                                        <li class="songTitle" v-html="item.songName"></li>
+                                        <li class="singer" v-html="handleFilterData(item,'music','songDescribe')"></li>
+                                        <span class="more" @click="moreAction(index)">...</span>
+                                    </ul>
+                                    
                                 </mt-cell>
                             </div>
                             <!--视频搜索-->
                             <div v-if="tabItem===SEARCHCONDITION.VIDEO" class="videoCell">
                                 <mt-cell
                                     v-for="(item,index) in videoObj.videoList"
-                                    :key="index"
-                                    >
-                                    <p class="videoTitle">{{item.title}}</p>
-                                    <p class="videoInfo">
-                                        {{handleFilterData(item.duration,'video','videoLength')+handleFilterData(item.creator,'video','videoCreator')}}
+                                    :key="index">
+                                    <p class="videoTitle" v-html="item.title"></p>
+                                    <p class="videoInfo"
+                                        v-html="handleFilterData(item.duration,'video','videoLength')+handleFilterData(item.creator,'video','videoCreator')">
                                     </p>
                                     <img slot="icon" :src="item.coverUrl" width="135" height="75">
+                                    <span slot="icon" class="playTime">
+                                        <i class="iconfont playIcon">&#xe611;</i>
+                                        <span class="playNum">{{handleFilterData(item.playTime,'video','videoPlayTime')}}</span>
+                                    </span>
                                 </mt-cell>
                             </div>
-
+                            <div v-if="tabItem===SEARCHCONDITION.SINGER" class="singerCell">
+                                <mt-cell
+                                    v-for="(item,index) in singerObj.singerList"
+                                    :key="index">
+                                    <div class="cover" slot="icon"
+                                        :style="item.singerCover
+                                            ?{backgroundImage:'url(' +item.singerCover +')'}
+                                                :{backgroundImage:'url(' +item.standbyCover +')'}">
+                                    </div>
+                                    <span slot="icon" class="singerName">{{item.singerName}}</span>
+                                    <span v-if="item.accountId" class="enter">
+                                        <i class="iconfont userIcon">&#xe769;</i>
+                                        <span class="enterText">已入驻</span>
+                                    </span>
+                                </mt-cell>
+                            </div>
                         </mt-tab-container-item>
                     </mt-tab-container>
                 </div>
@@ -70,7 +91,6 @@ import {
 } from '@services'
 import {
     filterSongDescribe,
-    filterSongName,
     filterSongLength
 } from '@filters/music/songInfoFilter.js'
 import {
@@ -94,7 +114,11 @@ export default {
                 videoList:[],
                 videoLength: 0
             },
-            videoList: [],
+            //歌手数据
+            singerObj:{
+                singerList:[],
+                singerLength: 0
+            },
             hotSearchList:[],
             searchWord:'',
             //更多的底部模态框判断
@@ -136,17 +160,23 @@ export default {
                 case "1":
                     this.singleSongObj.singleSongList = []
                     this.singleSongObj.singleSongLength = 0
-                    break;
+                    break
                 case "1014":
                     this.videoObj.videoList = []
                     this.videoObj.videoLength = 0
-                    break;
+                    break
+                case "100":
+                    this.singerObj.singerList = []
+                    this.singerObj.singerLength = 0
+                    break
                 default:
                     this.singleSongObj.singleSongList = []
                     this.singleSongObj.singleSongLength = 0
                     this.videoObj.videoList = []
                     this.videoObj.videoLength = 0
-                    break;
+                    this.singerObj.singerList = []
+                    this.singerObj.singerLength = 0
+                    break
             }
         },
         searchRes(keyword){
@@ -158,10 +188,8 @@ export default {
             if(keyword){
                 this.isHotSearch = false;
                 this.timer = setTimeout(() => {
-                    this.handleSearchResult(keyword,"1",20)
+                    this.handleSearchResult(keyword,this.searchActive,20)
                 }, 400)
-            }else{
-                this.isHotSearch = true
             }
         },
         handleGobackAction(){
@@ -169,8 +197,9 @@ export default {
         },
         //标志特定关键字
         handleMarkKeyWord(kw,data){
-            let markWord = "/"+data+"/g"
-            
+            let markReg = new RegExp(kw,"g")
+            data = JSON.stringify(data).replace(markReg,"<span style='color:#23b4f6;'>"+kw+"</span>")
+            return JSON.parse(data)
         },
         //读取过滤器 data要过滤的数据 datatype相对应的过滤器 classify具体的字段分类
         handleFilterData(data,datatype,classify){
@@ -180,10 +209,6 @@ export default {
                     //歌曲描述：显示
                     case "songDescribe":
                         return filterSongDescribe(data)
-                        break
-                    //歌曲名字：过长
-                    case "songName":
-                        return filterSongName(data)
                         break
                     //歌曲时长：获取,格式
                     case "songLength":
@@ -288,7 +313,7 @@ export default {
                 getNetEaseMusicAlbum(this.singleSongObj.singleSongList[currentIndex].alibumId).then(res=>{
                     if (res) {
                         this.singleSongObj.singleSongList[currentIndex].picUrl = res.album.picUrl
-                        this.singleSongObj.singleSongList[currentIndex].songLength = handleFilterData(res.songsInfo[0].dt,"music","songLength")
+                        this.singleSongObj.singleSongList[currentIndex].songLength = this.handleFilterData(res.songsInfo[0].dt,"music","songLength")
                         resolve()
                     }
                 })
@@ -320,6 +345,8 @@ export default {
                     if(this.singleSongObj.singleSongLength!==0)break
                 case "1014":
                     if(this.videoObj.videoLength!==0)break
+                case "100":
+                    if(this.singerObj.singerLength!==0)break
                 default:
                     this.handleSearchResult(this.searchWord,searchType,20)
                     break
@@ -332,12 +359,15 @@ export default {
             getNetEaseMusicSearch(kw,type,limit,offset).then(res=>{
                 if (res) {
                     if(type==="1"){
-                        this.singleSongObj.singleSongList = res.songData
+                        this.singleSongObj.singleSongList = this.handleMarkKeyWord(kw,res.songData)
                         this.singleSongObj.singleSongLength = res.songCount
                     }else if (type==="1014") {
-                        this.videoObj.videoList = res.videoData
+                        this.videoObj.videoList = this.handleMarkKeyWord(kw,res.videoData)
                         this.videoObj.videoLength = res.videoCount
-                        console.log(this.videoObj)
+                    }else if (type==="100"){
+                        this.singerObj.singerList = res.singerData
+                        this.singerObj.singerLength = res.singerCount
+                        console.log(this.singerObj)
                     }
                     
                 }
@@ -469,13 +499,8 @@ a:hover {
     -webkit-box-orient: vertical;
     white-space: nowrap;
 }
-.mint-search>>>.mint-cell-wrapper{
-    margin-top: .1rem;
-    float: left;
-}
-.more{
-    font-size: .693333rem;
-    transform: rotate(90deg);
+.searchBar>>>.mint-search-list{
+    display: block !important;
 }
 .content{
     position: absolute;
@@ -498,24 +523,117 @@ a:hover {
     border-radius: .4rem;
     background-color: #eeeeee;
 }
+.songCell>>>.mint-cell-wrapper{
+    background: transparent;
+    box-sizing: content-box;
+    padding: .08rem 0;
+    border-bottom: 1px solid #cccccc;
+}
+.songCell>>>.mint-cell-value{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.songCell .songInfo{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-left: .266667rem;
+}
+.songCell .songTitle{
+    width: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #000;
+}
+.songCell .singer{
+    color: #888;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: .32rem;
+    margin-top: .16rem;
+}
+.songCell .more{
+    position: absolute;
+    top: 12%;
+    right: 0;
+    font-size: .693333rem;
+    transform: rotate(90deg);
+}
 .videoCell>>>.mint-cell-value{
     display: block;
     float: left;
+}
+.videoCell>>>.mint-cell-title{
+    position: relative;
+    flex: 0;
 }
 .videoCell .videoTitle{
     padding-left: .266667rem;
     font-size: .373333rem;
     line-height: .533333rem;
     color: #000;
-    float: left;
 }
 .videoCell .videoInfo{
     padding-left: .266667rem;
     font-size: .293333rem;
     margin-top: .266667rem;
-    float: left;
 }
 .videoCell .mint-cell img{
     padding-top: .133333rem;
+}
+.playTime{
+    position: absolute;
+    top: .133333rem;
+    right: .133333rem;
+}
+.playTime .playIcon{
+    font-size: .213333rem;
+    color: #fff;
+    font-weight: bold;
+}
+.playTime .playNum{
+    font-size: .213333rem;
+    color: #fff;
+}
+.singerCell>>>.mint-cell-wrapper{
+    padding: 0 .133333rem;
+    line-height: 1.28rem;
+}
+.singerCell>>>.mint-cell-title{
+    margin: .08rem 0;
+}
+.singerCell .cover{
+    float: left;
+    width: 1.333333rem;
+    height: 1.2rem;
+    border-radius: .133333rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: .08rem;
+}
+.singerCell .singerName{
+    float: left;
+    font-size: .346667rem;
+    margin-left: .266667rem;
+}
+.singerCell .enter{
+    margin-right: .533333rem;
+}
+.enter .userIcon{
+    position: relative;
+    top: 0.053333rem;
+    font-size: .426667rem;
+    margin-right: .133333rem;
+}
+.enter .enterText{
+    font-size: .32rem;
+    color: #c2bbbb;
+    font-weight: bold;
 }
 </style>
