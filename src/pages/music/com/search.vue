@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="list">
-            <mt-search  placeholder="搜索"  v-model="searchWord" @input="searchRes" :class="searchWord===''&&!isHotSearch?'searchBar':''">
+            <mt-search  :placeholder="recommendSearch"  v-model="searchWord" @input="searchRes" :class="searchWord===''&&!isHotSearch?'searchBar':''">
                 <div class="nav">
                     <div class="nav-wrapper">
                         <mt-button size="small" v-for="(tabItem,tabIndex) in searchType" :key="tabIndex"
@@ -44,6 +44,7 @@
                                     </span>
                                 </mt-cell>
                             </div>
+                            <!-- 歌手搜索 -->
                             <div v-if="tabItem===SEARCHCONDITION.SINGER" class="singerCell">
                                 <mt-cell
                                     v-for="(item,index) in singerObj.singerList"
@@ -58,6 +59,12 @@
                                         <i class="iconfont userIcon">&#xe769;</i>
                                         <span class="enterText">已入驻</span>
                                     </span>
+                                </mt-cell>
+                            </div>
+                            <div v-if="tabItem===SEARCHCONDITION.ALBUM" class="albumCell">
+                                <mt-cell
+                                    v-for="(item,index) in albumObj.albumList"
+                                    :key="index">
                                 </mt-cell>
                             </div>
                         </mt-tab-container-item>
@@ -119,8 +126,14 @@ export default {
                 singerList:[],
                 singerLength: 0
             },
+            //专辑数据
+            albumObj:{
+                albumList: [],
+                albumLength: 0
+            },
             hotSearchList:[],
             searchWord:'',
+            recommendSearch:'云村有票',
             //更多的底部模态框判断
             isMoreFlag:false,
             downLoadIndex:0,
@@ -330,7 +343,7 @@ export default {
                 })
             })
         },
-        // 单曲按钮事件
+        // 单曲更多按钮事件
         moreAction(currentIndex){
             if (!this.isMoreFlag) {
                 this.downLoadIndex = currentIndex
@@ -339,19 +352,30 @@ export default {
             }
         },
         searchAction(searchType){
+            let isRequest = false
             this.searchActive = searchType
             switch (searchType) {
                 case "1":
-                    if(this.singleSongObj.singleSongLength!==0)break
+                    if(this.singleSongObj.singleSongLength===0) isRequest = true
+                    break
                 case "1014":
-                    if(this.videoObj.videoLength!==0)break
+                    if(this.videoObj.videoLength===0) isRequest = true
+                    break
                 case "100":
-                    if(this.singerObj.singerLength!==0)break
+                    if(this.singerObj.singerLength===0) isRequest = true
+                    break
+                case "10":
+                    if(this.albumObj.albumLength===0) isRequest = true
+                    break
                 default:
-                    this.handleSearchResult(this.searchWord,searchType,20)
                     break
             }
-            
+            if(isRequest&&this.searchWord!==""){
+                this.handleSearchResult(this.searchWord,searchType,20)
+            }else if(isRequest&&this.searchWord===""){
+                // todo...推荐搜索
+                // this.handleSearchResult(this.recommendSearch,searchType,20)
+            }
         },
         handleSearchResult(kw,type,limit,offset){
             //   '1', '1014','100', '10','1000', '1009',  '1002'
@@ -367,7 +391,10 @@ export default {
                     }else if (type==="100"){
                         this.singerObj.singerList = res.singerData
                         this.singerObj.singerLength = res.singerCount
-                        console.log(this.singerObj)
+                    }else if (type==="10"){
+                        this.albumObj.albumList = res.albumData
+                        this.albumObj.albumLength = res.albumCount
+                        // console.log(this.albumObj)
                     }
                     
                 }

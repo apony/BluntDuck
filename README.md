@@ -637,7 +637,7 @@ npm run build
         //...AppHeader.vue
         <script>
             export default {
-                name:'test'
+                name:'AppHeader'
             }
         </script>
         
@@ -646,6 +646,7 @@ npm run build
         import Vue from 'vue'
         import App from './App.vue'
         import boundle from './boundle'
+        import AppHeader from '@common/AppHeader.vue'
         Vue.use(boundle)
         new Vue({
           render: h => h(App)
@@ -802,3 +803,5 @@ npm run build
     // 执行顺序： 1 2 3 4
     ```
     >* 笔记：Promise可以解决一些从各个接口异步请求回来的数据同步拼接时尴尬问题
+    
+    ----
