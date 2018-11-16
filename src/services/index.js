@@ -95,6 +95,23 @@ export function getNetEaseMusicSearch(keywords,type,limit,offset){
 
                     data.singerData = singerData
                     data.singerCount = result.data.result.artistCount
+                }else if(type==="10"){
+                    console.log(result.data.result)
+                    let albumData = result.data.result.albums.map(item=>{
+                        return {
+                            albumId: item.id,
+                            albumName: item.name,
+                            albumCompany: item.company, // 唱片公司
+                            albumType: item.type, // 专辑类型(分'专辑'和'EP/Single'[单曲专辑],'精选集'三种类型)
+                            albumCommentId: item.commentThreadId, //专辑评论
+                            albumPublishTime: item.publishTiem, //专辑发行时间
+                            albumCover: item.picUrl, // 专辑封面
+                            albumSize: item.size, //专辑歌曲数量
+                            copyrightId: item.copyrightId, //版权Id
+                        }
+                    })
+                    data.albumData = albumData
+                    data.albumCount = result.data.result.albumCount
                 }
                 resolve(data)
             }

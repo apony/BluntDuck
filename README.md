@@ -637,7 +637,7 @@ npm run build
         //...AppHeader.vue
         <script>
             export default {
-                name:'test'
+                name:'AppHeader'
             }
         </script>
         
@@ -646,6 +646,7 @@ npm run build
         import Vue from 'vue'
         import App from './App.vue'
         import boundle from './boundle'
+        import AppHeader from '@common/AppHeader.vue'
         Vue.use(boundle)
         new Vue({
           render: h => h(App)
@@ -673,31 +674,33 @@ npm run build
     `解决有三，其三最优：`
     - [ ] [方法一](https://blog.csdn.net/qq_36671474/article/details/82454718)： 自定义mint-ui样式表，整体修改默认样式
         >步骤1：新建my-mint.scss文件，app.vue引入自定义mint-ui样式覆盖原来默认样式
-    ```scss
-    /* 附上my-mint.scss*/
-    //该例子为修改mint-ui整体颜色风格
-    $color-primary: orange; 
-.mint-header {background-color: $color-primary;}
-.mint-button:not(.is-disabled):active::after {opacity: .2}
-.mint-button--primary {background-color:$color-primary;}
-.mint-button--primary.is-plain {border: 1px solid $color-primary; color: $color-primary}
-.mint-badge.is-primary {background-color: $color-primary}
-.mint-switch-input:checked + .mint-switch-core {border-color: $color-primary;  background-color: $color-primary;}
-.mint-navbar .mint-tab-item.is-selected {border-bottom: 3px solid $color-primary;  color: $color-primary;}
-.mint-tabbar > .mint-tab-item.is-selected {color: $color-primary;}
-.mint-searchbar-cancel {color: $color-primary;}
-.mint-checkbox-input:checked + .mint-checkbox-core {background-color: $color-primary;  border-color: $color-primary;}
-.mint-radio-input:checked + .mint-radio-core {background-color: $color-primary;  border-color: $color-primary;}
-.mt-range-progress {background-color: $color-primary;}
-.mt-progress-progress {background-color: $color-primary;}
-.mint-msgbox-confirm {color: $color-primary;}
-.mint-msgbox-confirm:active {color: $color-primary;}
-.mint-datetime-action {color: $color-primary;}
-    ```
+        
         >步骤二：引入my-mint.scss
         ```vue
         import './assets/css/my-mint.scss';//全局修改mint-UI样式
         ```
+        
+       ```scss
+       /* 附上my-mint.scss*/
+       //该例子为修改mint-ui整体颜色风格
+       $color-primary: orange; 
+      .mint-header {background-color: $color-primary;}
+      .mint-button:not(.is-disabled):active::after {opacity: .2}
+      .mint-button--primary {background-color:$color-primary;}
+      .mint-button--primary.is-plain {border: 1px solid $color-primary; color: $color-primary}
+      .mint-badge.is-primary {background-color: $color-primary}
+      .mint-switch-input:checked + .mint-switch-core {border-color: $color-primary;  background-color: $color-primary;}
+      .mint-navbar .mint-tab-item.is-selected {border-bottom: 3px solid $color-primary;  color: $color-primary;}
+      .mint-tabbar > .mint-tab-item.is-selected {color: $color-primary;}
+      .mint-searchbar-cancel {color: $color-primary;}
+      .mint-checkbox-input:checked + .mint-checkbox-core {background-color: $color-primary;  border-color: $color-primary;}
+      .mint-radio-input:checked + .mint-radio-core {background-color: $color-primary;  border-color: $color-primary;}
+      .mt-range-progress {background-color: $color-primary;}
+      .mt-progress-progress {background-color: $color-primary;}
+      .mint-msgbox-confirm {color: $color-primary;}
+      .mint-msgbox-confirm:active {color: $color-primary;}
+      .mint-datetime-action {color: $color-primary;}
+       ```
     - [ ] [方法二](https://blog.csdn.net/swiftlinlei/article/details/80481799)：通过编译后的class类名暴露，获取修改样式，当然也要提高样式优先级达到覆盖
         > mint-ui中的Header组件编译后变为
         ```html
@@ -800,3 +803,5 @@ npm run build
     // 执行顺序： 1 2 3 4
     ```
     >* 笔记：Promise可以解决一些从各个接口异步请求回来的数据同步拼接时尴尬问题
+    
+    ----
