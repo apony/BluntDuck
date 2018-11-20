@@ -1,9 +1,0 @@
-每天上班
-1.更新腊鸭音乐版本:	打开myVueFrame-文件夹 => 右键点击git bash here => 执行git pull
-2.运行数据库:	打开NeteaseCloudMusicApi文件夹 => 运行cmd并输入 cnpm run start
-3.运行腊鸭音乐app:	打开myVueFrame-文件夹 => 运行cmd并输入 cnpm run dev
-4.打开任一浏览器:	在地址栏输入 http://localhost:8080/
-每天下班
-关闭两个cmd窗口即可
-
-注意: 中途关闭任一cmd窗口立即重复 2,3,4步骤即可

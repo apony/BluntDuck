@@ -1,8 +1,0 @@
-正常操作：git clone克隆项目 => git branch查看分支 => git branch -b dev在master基础下创建dev分支 => git branch -vv查看分支与远程分支连接情况 => git pull拉去代码会提示建立连接 => git branch --set-upstream-to=origin/dev dev与远程dev分支建立连接
-
-解决从master分支创建分支会提示要上传master分支合并其他分支的每个提交记录 
-git clone克隆项目 => 
-git branch查看分支 => 
-git fetch origin dev:dev直接拉去远程分支到本地 =>
-git pull拉去代码会提示建立连接 =>
-git branch --set-upstream-to=origin/dev dev与远程dev分支建立连接
