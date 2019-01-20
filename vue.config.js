@@ -17,7 +17,7 @@
 // }
 
 // module.exports = {
-//     // baseUrl: '/',
+//     // publicPath: '/',
 //     // outputDir: 'dist',
 //     devServer: {
 //         // open: process.platform === 'darwin',
@@ -45,7 +45,7 @@ const mock = require('./src/mock')
 
 module.exports = {
     // 基本路径
-    baseUrl: '/',
+    publicPath: '/',
     // 输出文件目录
     outputDir: 'dist',
     // eslint-loader 是否在保存的时候检查
@@ -85,7 +85,7 @@ module.exports = {
     // webpack-dev-server 相关配置
     devServer: {
     //  open: process.platform === 'darwin',
-     host: '10.98.12.160',
+    //  host: '10.98.12.160',
     //  port: 8080,
     //  https: false,
     //  hotOnly: false,
