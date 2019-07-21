@@ -1,5 +1,5 @@
-# 个人成长的vue笔记项目——laya
-#####基于vue-cli脚手架工具搭建的vue环境，使用node的express模块模拟后台mock数据
+# 与vue结缘，更是与前端为伴！无悔入前端。
+### 我想成为一个温柔的人，因为曾被温柔的人那样对待，深深了解那种被温柔相待的感觉。————夏目友人帐
 ------
 ## Project setup(项目配置)
 ### Install depend on the package (安装依赖包)
