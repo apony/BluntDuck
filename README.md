@@ -1,20 +1,20 @@
 # 与vue结缘，更是与前端为伴！无悔入前端。
 ### 我想成为一个温柔的人，因为曾被温柔的人那样对待，深深了解那种被温柔相待的感觉。
 ------
-## Project setup(项目配置)
-### Install depend on the package (安装依赖包)
+## Project setup
+### Install depend on the package
 ```shell
 npm install
 ```
-### Running the express server(运行express服务器)
+### Running the express server
 ```shell
 npm run start
 ```
-### Compiles and hot-reloads for development(开发环境)
+### Compiles and hot-reloads for development
 ```shell
 npm run dev
 ```
-### Compiles and minifies for production(项目部署)
+### Compiles and minifies for production
 ```shell
 npm run build
 ```
